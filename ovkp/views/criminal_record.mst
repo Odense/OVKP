@@ -1,0 +1,141 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title></title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <style>
+        body {
+            background-color: #fafafa;
+        }
+
+        .navbar {
+            background-color: #34474e;
+        }
+
+        .rad {
+            border-radius: 0;
+        }
+
+        nav .btn {
+            background-color: #1f1f1f;
+        }
+
+        .header {
+            background-color: #f7c143;
+        }
+    </style>
+</head>
+<body>
+    {{> header}}
+    <div class="container-fluid">
+        <div class="row justify-content-md-center mt-3">
+            <div class="col">
+                <h4 class="card-header header text-center">Судова справа № <b>RG72</b></h4>
+                <div class="card-group">
+                    <div class="card">
+                        <h4 class="card-header">Особисті дані на час скоєння правопорушення</h4>
+                        <div class="card-body">
+                            <h6 class="card-title"><b>Прізвище:</b></h6>
+                            <p class="card-text">Павлік</p>
+                            <h6 class="card-title"><b>Ім'я:</b></h6>
+                            <p class="card-text">Віктор</p>
+                            <h6 class="card-title"><b>По батькові:</b></h6>
+                            <p class="card-text">Павлікович</p>
+                            <h6 class="card-title"><b>Посада:</b></h6>
+                            <p class="card-text">Професор</p>
+                            <h6 class="card-title"><b>Місце роботи:</b></h6>
+                            <p class="card-text">КПІ</p>
+                            <h6 class="card-title"><b>Дата народження:</b></h6>
+                            <p class="card-text">2000-01-13</p>
+                            <h6 class="card-title"><b>Місце народження:</b></h6>
+                            <p class="card-text">Київ, Україна</p>
+                            <h6 class="card-title"><b>Місце проживання:</b></h6>
+                            <p class="card-text">Київ, Україна</p>
+                            <p class="card-text"><small class="text-muted">Фізична особа</small></p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <h4 class="card-header">Паспортні дані</h4>
+                        <div class="card-body">
+                            <h6 class="card-title"><b>Серія:</b></h6>
+                            <p class="card-text">КП7273</p>
+                            <h6 class="card-title"><b>Номер:</b></h6>
+                            <p class="card-text">101505</p>
+                            <h6 class="card-title"><b>Орган, що видав:</b></h6>
+                            <p class="card-text">0203</p>
+                            <h6 class="card-title"><b>Реєстраційний номер облікової картки платника податків:</b></h6>
+                            <p class="card-text">ИР35235Т</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <h4 class="card-header">Інформація про судову справу</h4>
+                        <div class="card-body">
+                            <h6 class="card-title"><b>Назва суду, що виніс вирок:</b></h6>
+                            <p class="card-text">КПІ</p>
+                            <h6 class="card-title"><b>Дата винесення вироку судом:</b></h6>
+                            <p class="card-text">2020-05-10</p>
+                            <h6 class="card-title"><b>Номер вироку суду:</b></h6>
+                            <p class="card-text">ПН343554</p>
+                            <h6 class="card-title"><b>Дата набрання законної сили судовим рішенням про притягнення особи до відповідальності:</b></h6>
+                            <p class="card-text">2020-05-20</p>
+                            <h6 class="card-title"><b>Дата погашення судимості:</b></h6>
+                            <p class="card-text">2021-06-01</p>
+                            <h6 class="card-title"><b>Підстава для погашення судимості:</b></h6>
+                            <p class="card-text">Закінчення університету</p>
+                            <p class="card-text"><small class="text-muted">Погашено</small></p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <h4 class="card-header">Інформація про вчинення правопорушення</h4>
+                        <div class="card-body">
+                            <h6 class="card-title"><b>Склад корупційного правопорушення:</b></h6>
+                            <p class="card-text">Порушення кодексу честі</p>
+                            <h6 class="card-title"><b>Cпосіб вчинення:</b></h6>
+                            <p class="card-text">Руками</p>
+                            <h6 class="card-title"><b>Місце скоєння:</b></h6>
+                            <p class="card-text">15 корпус</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <h4 class="card-header">Інформація про покарання</h4>
+                        <div class="card-body">
+                            <h6 class="card-title"><b>Номер кримінальної статті:</b></h6>
+                            <p class="card-text">Стаття 12. Порушення кодексу честі КПІ</p>
+                            <h6 class="card-title"><b>Вид покарання (стягнення), суть задоволення позовних вимог:</b></h6>
+                            <p class="card-text">4 роки у КПІ</p>
+                            <h6 class="card-title"><b>Дата звільнення юридичної особи від застосування заходів кримінально-правового характеру:</b></h6>
+                            <p class="card-text">2021-06-01</p>
+                            <h6 class="card-title"><b>Підстава для звільнення юридичної особи від застосування заходів кримінально-правового характеру:</b></h6>
+                            <p class="card-text">Закінчення університету</p>
+                            <h6 class="card-title"><b>Вид дисциплінарного стягнення:</b></h6>
+                            <p class="card-text">Ремнем по</p>
+                            <h6 class="card-title"><b>Реквізити розпорядчого документа про накладення дисциплінарного стягнення:</b></h6>
+                            <p class="card-text">РГО653</p>
+                            <h6 class="card-title">
+                                <b>
+                                    Дата скасування розпорядчого документа про накладення дисциплінарного стягнення:
+                                </b>
+                            </h6>
+                            <p class="card-text">2020-05-20</p>
+                            <h6 class="card-title">
+                                <b>
+                                    Підстава для скасування розпорядчого документа про накладення дисциплінарного стягнення:
+                                </b>
+                            </h6>
+                            <p class="card-text">Закінчення семестру</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+</body>
+</html>

@@ -1,0 +1,38 @@
+{{#user}}
+<nav class="navbar navbar-expand-lg navbar-dark">
+        <a class="navbar-brand" style="font-size: 16px" href="/">ЄДИНИЙ ДЕРЖАВНИЙ РЕЄСТР осіб, які вчинили корупційні або пов'язані з корупцією правопорушення</a>
+
+        <form class="form-inline ml-auto">
+            <ul class="navbar-nav mr-2">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        ДОДАТИ ВІДОМОСТІ
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="/criminal_record_add">Додати судову справу</a>
+                        <a class="dropdown-item" href="/ovkp_add">Додати ОВКП</a>
+                        <a class="dropdown-item" href="/article_add">Додати статтю КУпАП</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="/articles">Перегляд статей КУпАП</a>
+                        {{^role}}
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="/registrars">Перегляд Реєстраторів</a>
+                            <a class="dropdown-item" href="/registrars_add">Додати Реєстратора</a>
+                            <a class="dropdown-item" href="/logs">Перегляд логування</a>
+                        {{/role}}
+                    </div>
+                </li>
+            </ul>
+            <a role="button" href="/logout" class="btn btn-dark btn-sm rad" type="submit">ВИЙТИ</a>
+        </form>
+    </nav>
+{{/user}}
+{{^user}}
+<nav class="navbar navbar-expand-lg navbar-dark">
+        <a class="navbar-brand" style="font-size: 16px" href="/">ЄДИНИЙ ДЕРЖАВНИЙ РЕЄСТР осіб, які вчинили корупційні або пов'язані з корупцією правопорушення</a>
+
+        <form class="form-inline ml-auto">
+            <a role="button" href="/login" class="btn btn-dark btn-sm rad">АВТОРИЗУВАТИСЯ</a>
+        </form>
+    </nav>
+{{/user}}
