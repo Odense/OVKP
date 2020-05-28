@@ -45,8 +45,6 @@ class CriminalRecord {
         offence_description, offence_method, offence_location) {
 
         this.pcco = pcco;
-        this.crime_info_id = crime_info_id;
-        this.punishment_info_id = punishment_info_id;
         this.court_name = court_name;
         this.court_case_number = court_case_number;
         this.court_sentence_date = court_sentence_date;
@@ -70,14 +68,40 @@ class CriminalRecord {
         this.offence_location = offence_location;
     }
 
+    toString() {
+        
+        return '         \npcco: ' + this.pcco +
+        '         \ncourt_name: ' + this.court_name +
+        '         \ncourt_case_number: ' + this.court_case_number +
+        '         \ncourt_sentence_date: ' + this.court_sentence_date +
+        '         \ncourt_sentence_number: ' + this.court_sentence_number +
+        '         \ncourt_sentence_applying_date: ' + this.court_sentence_applying_date +
+        '         \ncriminal_record_cancellation_date: ' + this.criminal_record_cancellation_date +
+        '         \ncriminal_record_cancellation_reason: ' + this.criminal_record_cancellation_reason +
+        '         \nis_active: ' + this.is_active +
+
+        '         \ncriminal_article: ' + this.criminal_article.id +
+        '         \ncriminal_action_type: ' + this.criminal_action_type +
+        '         \ncriminal_action_cancellation_date: ' + this.criminal_action_cancellation_date +
+        '         \ncriminal_action_cancellation_reason: ' + this.criminal_action_cancellation_reason +
+        '         \ndisciplinary_action_type: ' + this.disciplinary_action_type +
+        '         \ndisciplinary_action_details: ' + this.disciplinary_action_details +
+        '         \ndisciplinary_action_cancellation_date: ' + this.disciplinary_action_cancellation_date +
+        '         \ndisciplinary_action_cancellation_reason: ' + this.disciplinary_action_cancellation_reason +
+
+        '         \noffence_description: ' + this.offence_description +
+        '         \noffence_method: ' + this.offence_method +
+        '         \noffence_location: ' + this.offence_location;
+    }
+
     static getAll() {
         return CriminalRecordModel.find()
-        .populate('pcco_id')
+        .populate('pcco')
     }
 
     static getById(id) {
         return CriminalRecordModel.findById(id)
-        .populate('pcco_id')
+        .populate('pcco')
     }
 
     static insert(criminal_record) {

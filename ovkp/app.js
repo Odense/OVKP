@@ -118,8 +118,7 @@ app.get(`/criminal_record_modify/:id`, function (req, res) { // todo
     res.render(`criminal_record_modify`, {user: curr_user});
 });
 
-app.post(`/criminal_record_modify`, function (req, res) { // todo
-
+app.post(`/criminal_record_modify`, function (req, res) { // todo ебучие логи
     res.render(`criminal_record_modify`, {user: curr_user});
 });
 

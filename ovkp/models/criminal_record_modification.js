@@ -1,14 +1,16 @@
 const mongoose = require('mongoose');
 
 const CriminalRecordModificationSchema = new mongoose.Schema({
-    user_id: {
+    user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'user'
     },
-    record_id: {
+    record: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'criminal_record'
     },
+    old_values: {type: String},
+    new_values: {type: String},
     type: {type: String, required: true },
     created_at: {type: Date, default: Date.now()}
 });
@@ -16,22 +18,35 @@ const CriminalRecordModificationSchema = new mongoose.Schema({
 const CriminalRecordModificationModel = mongoose.model('criminal_record_modification', CriminalRecordModificationSchema);
 
 class CriminalRecordModification {
-    constructor(user_id, record_id, type) {
-        this.user_id = user_id;
-        this.record_id = record_id;
+    constructor(user, record, type, old_values, new_values) {
+        this.user = user;
+        this.record = record;
         this.type = type;
+        this.old_values = old_values;
+        this.new_values = new_values;
+    }
+
+    toString() {
+        return "user: " + 
+        "  \nid: " + this.user.id +
+        "  \nfull_name: " + this.user.full_name +
+        "\nrecord_id: " + this.record.id +
+        "\nold_values: " + this.old_values +
+        "\nnew_values: " + this.new_values +
+        "\ntype: " + this.type +
+        "\ncreated_at: " + this.created_at;
     }
 
     static getAll() {
         return CriminalRecordModificationModel.find()
-        .populate('user_id')
-        .populate('record_id');
+        .populate('user')
+        .populate('record');
     }
 
     static getById(id) {
         return CriminalRecordModificationModel.findById(id)
-        .populate('user_id')
-        .populate('record_id');
+        .populate('user')
+        .populate('record');
     }
     static insert(mod) {
         const model = new CriminalRecordModificationModel(mod);
