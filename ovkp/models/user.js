@@ -28,7 +28,7 @@ class User {
     }
 
     static getByEmailAndPassword(email, password) {
-        return UserModel.findOne({email: email, password: password});
+        return UserModel.findOne({email: email, password: password}); // todo check is active
     }
 
     static getRegistrars() {

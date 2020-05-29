@@ -100,6 +100,7 @@ app.post('/article_modify', function (req, res) {
 });
 
 app.get(`/criminal_record`, function (req, res) { // todo
+
     res.render(`criminal_record`, {user: curr_user});
 });
 
@@ -109,7 +110,7 @@ app.get(`/criminal_record_add`, function (req, res) { // todo
     .catch(err => res.status(500).send(err.toString()));
 });
 
-app.post(`/criminal_record_add`, function (req, res) { // todo
+app.post(`/criminal_record_add`, function (req, res) { // todo ебучие логи
     res.render(`criminal_record_add`, {user: curr_user});
 });
 
@@ -143,6 +144,7 @@ app.get(`/logout`, function (req, res) {
 });
 
 app.get(`/logs`, function (req, res) { // todo
+
     res.render(`logs`, {user: curr_user});
 });
 
