@@ -34,7 +34,9 @@
     <div class="container">
         <div class="row justify-content-md-center mt-5">
             <div class="col-12">
-                <object data="/logs.json" type="application/json"></object>
+                <p><b>Log was created at:</b> {{created_at}}</p>
+                <p><b>New values:</b> {{new_values}}</p>
+                <p><b>All info:</b> {{logs}}</p>
             </div>
         </div>
     </div>
