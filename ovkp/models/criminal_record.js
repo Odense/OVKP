@@ -96,12 +96,12 @@ class CriminalRecord {
 
     static getAll() {
         return CriminalRecordModel.find()
-        .populate('pcco')
+        .populate('pcco');
     }
 
     static getById(id) {
         return CriminalRecordModel.findById(id)
-        .populate('pcco')
+        .populate('pcco');
     }
 
     static insert(criminal_record) {

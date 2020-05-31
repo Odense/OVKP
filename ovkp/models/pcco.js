@@ -44,24 +44,24 @@ class PCCO {
         this.legal_form = legal_form;
     }
 
-    static getAll() {
+    static async getAll() {
         return PCCOModel.find();
     }
 
-    static getById(id) {
-        return PCCOModel.findById(id);
+    static async getById(id) {
+        return await PCCOModel.findById(id);
     }
 
-    static insert(pcco) {
+    static async insert(pcco) {
         const model = new PCCOModel(pcco);
         return model.save()
         .then(saved => {return saved.id;});
     }
 
-    static update(pcco) {
-        return PCCOModel.findOneAndUpdate({_id: pcco.id}, test, { new: true });
+    static async update(pcco) {
+        return PCCOModel.findOneAndUpdate({_id: pcco._id}, pcco, { new: true });
     }
-    static delete(id) {
+    static async delete(id) {
         return PCCOModel.findOne({ _id: id })
             .then( () => {
                 return Promise.all([

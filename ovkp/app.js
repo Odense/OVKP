@@ -102,13 +102,20 @@ app.post('/article_modify', function (req, res) {
 
 app.get(`/criminal_record`, function (req, res) { // todo
 
-    res.render(`criminal_record`, { user: curr_user });
+    res.render(`criminal_record`, { user: curr_user  });
 });
 
-app.get(`/criminal_record_add`, function (req, res) { // todo
-    PCCO.getAll()
-        .then(pccos => res.render(criminal_record_add, { pccos: pccos, user: curr_user }))
-        .catch(err => res.status(500).send(err.toString()));
+app.get(`/criminal_record_add`, async (req, res) => { // todo
+    try {
+        const pcco_l = await PCCO.getAll();
+        console.log(pcco_l);
+        res.render('criminal_record_add', {pccos: pcco_l, user: curr_user});
+    } catch(err) {
+        res.status(500).send(err.toString());
+    }
+    // PCCO.getAll()
+    //     .then(pccos => res.render('criminal_record_add', { pccos: pccos, user: curr_user }))
+    //     .catch(err => res.status(500).send(err.toString()));
 });
 
 app.post(`/criminal_record_add`, function (req, res) { // todo ебучие логи
@@ -144,7 +151,7 @@ app.get(`/logout`, function (req, res) {
     res.redirect('/login');
 });
 
-app.get(`/logs`, function (req, res) { // todo
+app.get(`/logs`, function (req, res) { // todo  READ LOG FILE AFTER CRUD DONE
     const log_obj = JSON.parse(fs.readFileSync('./data/logs.json', 'utf8'));
     res.render(`logs`, { logs: JSON.stringify(log_obj.logs, null, 4), 
                         created_at: JSON.stringify(log_obj.logs[0].created_at, null, 4),
@@ -155,8 +162,17 @@ app.get(`/ovkp_add`, function (req, res) { // todo
     res.render(`ovkp_add`, { user: curr_user });
 });
 
-app.post(`/ovkp_add`, function (req, res) { // todo
-    res.render(`ovkp_add`, { user: curr_user });
+app.post(`/ovkp_add`, async (req, res) => { // todo
+    let pcco_to_add = new PCCO(req.body.passport_series, req.body.passport_number, req.body.passport_issuing_authority, 
+                                req.body.personal_code, req.body.first_name, req.body.last_name, req.body.surname, 
+                                req.body.work_position, req.body.work_place, req.body.birth_date, req.body.birth_place, 
+                                req.body.is_ukr_residence, req.body.residence, req.body.is_personal === 'true', false);
+    try {
+        const created_pcco_id = await PCCO.insert(pcco_to_add);
+        res.redirect(`/ovkp/${created_pcco_id}`);
+    } catch(err) {
+        res.status(500).send(err.toString());
+    }
 });
 
 app.get(`/ovkp_modify/:id`, function (req, res) { // todo
