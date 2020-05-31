@@ -14,6 +14,8 @@
                         <a class="dropdown-item" href="/article_add">Додати статтю КУпАП</a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="/articles">Перегляд статей КУпАП</a>
+                        <a class="dropdown-item" href="/ovkps">Перегляд списку ОВКП</a>
+                        <a class="dropdown-item" href="/records">Перегляд списку судових справ</a>
                         {{^role}}
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="/registrars">Перегляд Реєстраторів</a>

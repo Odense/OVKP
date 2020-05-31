@@ -45,7 +45,7 @@ class PCCO {
     }
 
     static async getAll() {
-        return PCCOModel.find();
+        return await PCCOModel.find();
     }
 
     static async getById(id) {

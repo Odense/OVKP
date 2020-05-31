@@ -64,6 +64,12 @@ app.post(`/`, function (req, res) {
         .catch(err => res.status(500).send(err.toString()));
 });
 
+/************************************
+ *                                  *
+ *        ARTICLES ENDPOINTS        *          
+ *                                  *
+ ************************************/
+
 app.get(`/articles`, function (req, res) {
     CriminalArticles.getAll()
         .then(articles => res.render(`articles`, { articles: articles, user: curr_user }))
@@ -99,6 +105,12 @@ app.post('/article_modify', function (req, res) {
         .then(res.redirect(`/articles`))
         .catch(err => res.status(500).send(err.toString()));
 });
+
+/************************************
+ *                                  *
+ *      CRIMINAL REC ENDPOINTS      *          
+ *                                  *
+ ************************************/
 
 app.get(`/criminal_record`, function (req, res) { // todo
 
@@ -158,18 +170,33 @@ app.get(`/logs`, function (req, res) { // todo  READ LOG FILE AFTER CRUD DONE
                         new_values: JSON.stringify(log_obj.logs[0].new_values, null, 4) });
 });
 
-app.get(`/ovkp_add`, function (req, res) { // todo
+/************************************
+ *                                  *
+ *          OVKP ENDPOINTS          *          
+ *                                  *
+ ************************************/
+
+app.get(`/ovkps`, async (req, res) => {
+    try {
+        const pcco_l = await PCCO.getAll();
+        res.render(`ovkps`, { pcco_l: pcco_l, user: curr_user });
+    } catch(err) {
+        err => res.status(500).send(err.toString());
+    }
+});
+
+app.get(`/ovkp_add`, function (req, res) {
     res.render(`ovkp_add`, { user: curr_user });
 });
 
-app.post(`/ovkp_add`, async (req, res) => { // todo
+app.post(`/ovkp_add`, async (req, res) => {
     let pcco_to_add = new PCCO(req.body.passport_series, req.body.passport_number, req.body.passport_issuing_authority, 
                                 req.body.personal_code, req.body.first_name, req.body.last_name, req.body.surname, 
                                 req.body.work_position, req.body.work_place, req.body.birth_date, req.body.birth_place, 
                                 req.body.is_ukr_residence, req.body.residence, req.body.is_personal === 'true', false);
     try {
         const created_pcco_id = await PCCO.insert(pcco_to_add);
-        res.redirect(`/ovkp/${created_pcco_id}`);
+        res.redirect(`/ovkps/${created_pcco_id}`);
     } catch(err) {
         res.status(500).send(err.toString());
     }
@@ -182,6 +209,14 @@ app.get(`/ovkp_modify/:id`, function (req, res) { // todo
 app.get(`/ovkp_modify`, function (req, res) { // todo
     res.render(`ovkp_modify`, { user: curr_user });
 });
+
+
+/************************************
+ *                                  *
+ *     REGISTRATORS ENDPOINTS       *          
+ *                                  *
+ ************************************/
+
 
 app.get(`/registrars`, function (req, res) {
     User.getRegistrars()
