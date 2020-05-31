@@ -185,6 +185,15 @@ app.get(`/ovkps`, async (req, res) => {
     }
 });
 
+app.get(`/ovkps/:id`, async (req, res) => {
+    try {
+        const pcco = await PCCO.getById(req.params.id);        
+        res.render(`ovkp`, { pcco: pcco, user: curr_user });
+    } catch(err) {
+        err => res.status(500).send(err.toString());
+    }
+});
+
 app.get(`/ovkp_add`, function (req, res) {
     res.render(`ovkp_add`, { user: curr_user });
 });
@@ -202,14 +211,39 @@ app.post(`/ovkp_add`, async (req, res) => {
     }
 });
 
-app.get(`/ovkp_modify/:id`, function (req, res) { // todo
-    res.render(`ovkp_modify`, { user: curr_user });
+app.get(`/ovkp_modify/:id`, async (req, res) => { // todo
+    try {
+        const pcco_to_update = await PCCO.getById(req.params.id);
+        res.render(`ovkp_modify`, { user: curr_user, old_pcco: pcco_to_update });
+    } catch(err) {
+        res.status(500).send(err.toString());
+    }    
 });
 
-app.get(`/ovkp_modify`, function (req, res) { // todo
-    res.render(`ovkp_modify`, { user: curr_user });
+app.post(`/ovkp_modify/:id`, async (req, res) => {
+    try {
+        const pcco_to_update = await PCCO.getById(req.params.id);
+        pcco_to_update.passport_series = req.body.passport_series;
+        pcco_to_update.passport_number = req.body.passport_number;
+        pcco_to_update.passport_issuing_authority = req.body.passport_issuing_authority;
+        pcco_to_update.personal_code = req.body.personal_code;
+        pcco_to_update.first_name = req.body.first_name;
+        pcco_to_update.last_name = req.body.last_name;
+        pcco_to_update.surname = req.body.surname;
+        pcco_to_update.work_position = req.body.work_position;
+        pcco_to_update.work_place = req.body.work_place;
+        pcco_to_update.birth_date = req.body.birth_date;
+        pcco_to_update.birth_place = req.body.birth_place;
+        pcco_to_update.is_ukr_residence = true;
+        pcco_to_update.residence = req.body.residence;
+        pcco_to_update.is_personal = req.body.is_personal === 'true';
+        pcco_to_update.legal_form = false;
+        const updated_pcco = await PCCO.update(pcco_to_update);
+        res.redirect(`/ovkps/${updated_pcco._id}`);
+    } catch(err) {
+        res.status(500).send(err.toString());
+    }
 });
-
 
 /************************************
  *                                  *
@@ -237,6 +271,7 @@ app.post('/registrars_add', function (req, res) {
 
 function search(allCriminalRecords, first_name, last_name, surname, court_case_number, criminal_article_id) {
     let filteredByCaseNumber = [];
+    // eslint-disable-next-line eqeqeq
     if (court_case_number != '') {
         for (let record of allCriminalRecords) {
             if (record.court_case_number.includes(court_case_number)) {
@@ -247,6 +282,7 @@ function search(allCriminalRecords, first_name, last_name, surname, court_case_n
     else filteredByCaseNumber = Array.from(allCriminalRecords);
 
     let filteredByFirstName = [];
+    // eslint-disable-next-line eqeqeq
     if (first_name != '') {
         for (let record of filteredByCaseNumber) {
             if (record.pcco.first_name.includes(first_name)) {
@@ -257,6 +293,7 @@ function search(allCriminalRecords, first_name, last_name, surname, court_case_n
     else filteredByFirstName = Array.from(filteredByCaseNumber);
 
     let filteredByLastName = [];
+    // eslint-disable-next-line eqeqeq
     if (last_name != '') {
         for (let record of filteredByFirstName) {
             if (record.pcco.last_name.includes(last_name)) {
@@ -267,6 +304,7 @@ function search(allCriminalRecords, first_name, last_name, surname, court_case_n
     else filteredByLastName = Array.from(filteredByFirstName);
 
     let filteredBySurname = [];
+    // eslint-disable-next-line eqeqeq
     if (surname != '') {
         for (let record of filteredByLastName) {
             if (record.pcco.surname.includes(surname)) {
@@ -277,6 +315,7 @@ function search(allCriminalRecords, first_name, last_name, surname, court_case_n
     else filteredBySurname = Array.from(filteredByLastName);
 
     let filtered = [];
+    // eslint-disable-next-line eqeqeq
     if (criminal_article_id != '') {
         for (let record of filteredBySurname) {
             if (record.criminal_article.id.includes(criminal_article_id)) {

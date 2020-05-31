@@ -41,8 +41,8 @@
                     <div class="card-body">
                         <h5 class="card-title">Паспорт: {{passport_series}} {{passport_number}}</h5>
                         <p class="card-text">{{first_name}} {{surname}}</p>                    
-                        <a href="./ovkp_modify/{{_id}}" class="btn btn-info">Оновити</a>                        
-                        <a href="./ovkps/{{_id}}" class="btn btn-info">Переглянути</a>
+                        <a href="../ovkp_modify/{{_id}}" class="btn btn-info">Оновити</a>                        
+                        <a href="../ovkps/{{_id}}" class="btn btn-info">Переглянути</a>
                     </div>
                 </div>
                 {{/pcco_l}}

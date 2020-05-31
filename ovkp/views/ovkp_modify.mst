@@ -26,64 +26,72 @@
 </head>
 <body>
     {{> header}}
-    <div class="container">
-        <form>
+    <div class="container">    
+        <form action="../ovkp_modify/{{old_pcco._id}}" enctype="multipart/form-data" method="POST">
             <div class="row mt-5">
-                <div class="col-10">
+                <div class="col-10">                
                     <div class="form-group">
                         <label for="lastNameLabel"><b>Прізвище на час скоєння правопорушення</b></label>
-                        <input type="text" style="border-color:dimgrey" placeholder="Прізвище" class="form-control" id="lastNameLabel">
+                        <input type="text" style="border-color:dimgrey" value="{{old_pcco.last_name}}" class="form-control" id="lastNameLabel" name="last_name">
                     </div>
                     <div class="form-group">
                         <label for="firstNameLabel"><b>Ім'я на час скоєння правопорушення</b></label>
-                        <input type="text" style="border-color:dimgrey" placeholder="Ім'я" class="form-control" id="firstNameLabel">
+                        <input type="text" style="border-color:dimgrey" value="{{old_pcco.first_name}}" class="form-control" id="firstNameLabel" name="first_name">
                     </div>
                     <div class="form-group">
                         <label for="surnameLabel"><b>По батькові на час скоєння правопорушення</b></label>
-                        <input type="text" style="border-color:dimgrey" placeholder="По батькові" class="form-control" id="surnameLabel">
+                        <input type="text" style="border-color:dimgrey" value="{{old_pcco.surname}}" class="form-control" id="surnameLabel" name="surname">
                     </div>
                     <div class="form-group">
                         <label for="birthPlaceLabel"><b>Місце народження</b></label>
-                        <input type="text" style="border-color:dimgrey" placeholder="Місце народження" class="form-control" id="birthPlaceLabel">
+                        <input type="text" style="border-color:dimgrey" value="{{old_pcco.birth_place}}" class="form-control" id="birthPlaceLabel" name="birth_place">
                     </div>
                     <div class="form-group">
                         <label for="birthDateLabel"><b>Дата народження</b></label>
-                        <input type="date" style="border-color:dimgrey" placeholder="Дата народження" class="form-control" id="birthDateLabel">
+                        <input type="date" style="border-color:dimgrey" value="{{old_pcco.birth_date}}" class="form-control" id="birthDateLabel" name="birth_date">
                     </div>
                     <div class="form-group">
                         <label for="residenceLabel"><b>Місце проживання на час скоєння правопорушення</b></label>
-                        <input type="date" style="border-color:dimgrey" placeholder="Місце проживання" class="form-control" id="residenceLabel">
+                        <input type="text" style="border-color:dimgrey" value="{{old_pcco.residence}}" class="form-control" id="residenceLabel" name="residence">
                     </div>
                     <div class="form-group">
                         <label for="workPlaceLabel"><b>Місце роботи на час скоєння правопорушення</b></label>
-                        <input type="date" style="border-color:dimgrey" placeholder="Місце роботи" class="form-control" id="workPlaceLabel">
+                        <input type="text" style="border-color:dimgrey" value="{{old_pcco.work_place}}" class="form-control" id="workPlaceLabel" name="work_place">
                     </div>
                     <div class="form-group">
                         <label for="workPositionLabel"><b>Посада на час скоєння правопорушення</b></label>
-                        <input type="date" style="border-color:dimgrey" placeholder="Посада" class="form-control" id="workPositionLabel">
+                        <input type="text" style="border-color:dimgrey" value="{{old_pcco.work_position}}" class="form-control" id="workPositionLabel" name="work_position">
                     </div>
                     <div class="form-group">
                         <label for="passportSeriesLabel"><b>Серія паспорту</b></label>
-                        <input type="date" style="border-color:dimgrey" placeholder="Серія паспорту" class="form-control" id="passportSeriesLabel">
+                        <input type="text" style="border-color:dimgrey" value="{{old_pcco.passport_series}}" class="form-control" id="passportSeriesLabel" name="passport_series">
                     </div>
                     <div class="form-group">
                         <label for="passportNumberLabel"><b>Номер паспорту</b></label>
-                        <input type="date" style="border-color:dimgrey" placeholder="Номер паспорту" class="form-control" id="passportNumberLabel">
+                        <input type="number" style="border-color:dimgrey" value="{{old_pcco.passport_number}}" class="form-control" id="passportNumberLabel" name="passport_number">
                     </div>
                     <div class="form-group">
                         <label for="organLabel"><b>Орган, що видав паспорт</b></label>
-                        <input type="date" style="border-color:dimgrey" placeholder="Орган, що видав паспорт" class="form-control" id="organLabel">
+                        <input type="number" style="border-color:dimgrey" value="{{old_pcco.passport_issuing_authority}}" class="form-control" id="organLabel" name="passport_issuing_authority">
                     </div>
                     <div class="form-group">
                         <label for="personalCodeLabel"><b>Реєстраційний номер облікової картки платника податків</b></label>
-                        <input type="date" style="border-color:dimgrey" placeholder="Реєстраційний номер облікової картки платника податків" class="form-control" id="personalCodeLabel">
+                        <input type="text" style="border-color:dimgrey" value="{{old_pcco.personal_code}}" class="form-control" id="personalCodeLabel" name="personal_code">
                     </div>
+                    <div class="form-group">
+                        <label for="personalCodeLabel"><b>Особа є:</b></label>
+                        <br>
+                        <input type="radio" id="is_personal" name="is_personal" value="true" required>
+                        <label for="male">Фізичною</label><br>
+                        <input type="radio" id="is_personal" name="is_personal" value="false">
+                        <label for="male">Юридичною</label><br>
+                    </div>                
                 </div>
                 <div class="col">
                     <button type="submit" class="btn btn-primary btn-sm rad" style="align-self:flex-end">ЗБЕРЕГТИ</button>
                 </div>
             </div>
-        </form>
+        </form>    
     </div>
 
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>

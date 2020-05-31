@@ -59,7 +59,7 @@ class PCCO {
     }
 
     static async update(pcco) {
-        return PCCOModel.findOneAndUpdate({_id: pcco._id}, pcco, { new: true });
+        return await PCCOModel.findOneAndUpdate({_id: pcco._id}, pcco, { new: true });
     }
     static async delete(id) {
         return PCCOModel.findOne({ _id: id })
