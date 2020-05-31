@@ -108,26 +108,35 @@ app.post('/article_modify', function (req, res) {
 
 /************************************
  *                                  *
- *      CRIMINAL REC ENDPOINTS      *          
+ *      CRIMINAL REC ENDPOINTS      *
  *                                  *
  ************************************/
 
-app.get(`/criminal_record`, function (req, res) { // todo
+app.get(`/criminal_records`, async (req, res) => { // todo
+    try {
+        const record_l = await CriminalRecord.getAll();
+        res.render(`criminal_records`, { record_l: record_l, user: curr_user });
+    } catch (err) {
+        err => res.status(500).send(err.toString());
+    }
+});
 
-    res.render(`criminal_record`, { user: curr_user  });
+app.get(`/criminal_records/:id`, async (req, res) => { // todo
+    try {
+        const record = await CriminalRecord.getById(req.params.id);
+        res.render(`criminal_record`, { record: record, user: curr_user, pcco: record.pcco });
+    } catch (err) {
+        err => res.status(500).send(err.toString());
+    }
 });
 
 app.get(`/criminal_record_add`, async (req, res) => { // todo
     try {
         const pcco_l = await PCCO.getAll();
-        console.log(pcco_l);
-        res.render('criminal_record_add', {pccos: pcco_l, user: curr_user});
-    } catch(err) {
+        res.render('criminal_record_add', { pccos: pcco_l, user: curr_user });
+    } catch (err) {
         res.status(500).send(err.toString());
     }
-    // PCCO.getAll()
-    //     .then(pccos => res.render('criminal_record_add', { pccos: pccos, user: curr_user }))
-    //     .catch(err => res.status(500).send(err.toString()));
 });
 
 app.post(`/criminal_record_add`, function (req, res) { // todo ебучие логи
@@ -139,9 +148,15 @@ app.get(`/criminal_record_modify/:id`, function (req, res) { // todo
     res.render(`criminal_record_modify`, { user: curr_user });
 });
 
-app.post(`/criminal_record_modify`, function (req, res) { // todo ебучие логи
+app.post(`/criminal_record_modify/:id`, function (req, res) { // todo ебучие логи
     res.render(`criminal_record_modify`, { user: curr_user });
 });
+
+/************************************
+ *                                  *
+ *          AUTH ENDPOINTS          *
+ *                                  *
+ ************************************/
 
 app.get(`/login`, function (req, res) {
     res.render(`login`, { user: curr_user });
@@ -163,11 +178,19 @@ app.get(`/logout`, function (req, res) {
     res.redirect('/login');
 });
 
+/************************************
+ *                                  *
+ *         LOGGING ENDPOINT         *
+ *                                  *
+ ************************************/
+
 app.get(`/logs`, function (req, res) { // todo  READ LOG FILE AFTER CRUD DONE
     const log_obj = JSON.parse(fs.readFileSync('./data/logs.json', 'utf8'));
-    res.render(`logs`, { logs: JSON.stringify(log_obj.logs, null, 4), 
-                        created_at: JSON.stringify(log_obj.logs[0].created_at, null, 4),
-                        new_values: JSON.stringify(log_obj.logs[0].new_values, null, 4) });
+    res.render(`logs`, {
+        logs: JSON.stringify(log_obj.logs, null, 4),
+        created_at: JSON.stringify(log_obj.logs[0].created_at, null, 4),
+        new_values: JSON.stringify(log_obj.logs[0].new_values, null, 4)
+    });
 });
 
 /************************************
@@ -180,16 +203,16 @@ app.get(`/ovkps`, async (req, res) => {
     try {
         const pcco_l = await PCCO.getAll();
         res.render(`ovkps`, { pcco_l: pcco_l, user: curr_user });
-    } catch(err) {
+    } catch (err) {
         err => res.status(500).send(err.toString());
     }
 });
 
 app.get(`/ovkps/:id`, async (req, res) => {
     try {
-        const pcco = await PCCO.getById(req.params.id);        
+        const pcco = await PCCO.getById(req.params.id);
         res.render(`ovkp`, { pcco: pcco, user: curr_user });
-    } catch(err) {
+    } catch (err) {
         err => res.status(500).send(err.toString());
     }
 });
@@ -199,25 +222,25 @@ app.get(`/ovkp_add`, function (req, res) {
 });
 
 app.post(`/ovkp_add`, async (req, res) => {
-    let pcco_to_add = new PCCO(req.body.passport_series, req.body.passport_number, req.body.passport_issuing_authority, 
-                                req.body.personal_code, req.body.first_name, req.body.last_name, req.body.surname, 
-                                req.body.work_position, req.body.work_place, req.body.birth_date, req.body.birth_place, 
-                                req.body.is_ukr_residence, req.body.residence, req.body.is_personal === 'true', false);
+    let pcco_to_add = new PCCO(req.body.passport_series, req.body.passport_number, req.body.passport_issuing_authority,
+        req.body.personal_code, req.body.first_name, req.body.last_name, req.body.surname,
+        req.body.work_position, req.body.work_place, req.body.birth_date, req.body.birth_place,
+        req.body.is_ukr_residence, req.body.residence, req.body.is_personal === 'true', false);
     try {
         const created_pcco_id = await PCCO.insert(pcco_to_add);
         res.redirect(`/ovkps/${created_pcco_id}`);
-    } catch(err) {
+    } catch (err) {
         res.status(500).send(err.toString());
     }
 });
 
-app.get(`/ovkp_modify/:id`, async (req, res) => { // todo
+app.get(`/ovkp_modify/:id`, async (req, res) => {
     try {
         const pcco_to_update = await PCCO.getById(req.params.id);
         res.render(`ovkp_modify`, { user: curr_user, old_pcco: pcco_to_update });
-    } catch(err) {
+    } catch (err) {
         res.status(500).send(err.toString());
-    }    
+    }
 });
 
 app.post(`/ovkp_modify/:id`, async (req, res) => {
@@ -240,7 +263,7 @@ app.post(`/ovkp_modify/:id`, async (req, res) => {
         pcco_to_update.legal_form = false;
         const updated_pcco = await PCCO.update(pcco_to_update);
         res.redirect(`/ovkps/${updated_pcco._id}`);
-    } catch(err) {
+    } catch (err) {
         res.status(500).send(err.toString());
     }
 });

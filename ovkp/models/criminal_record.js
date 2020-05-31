@@ -94,27 +94,27 @@ class CriminalRecord {
         '         \noffence_location: ' + this.offence_location;
     }
 
-    static getAll() {
-        return CriminalRecordModel.find()
+    static async getAll() {
+        return await CriminalRecordModel.find()
         .populate('pcco');
     }
 
-    static getById(id) {
-        return CriminalRecordModel.findById(id)
+    static async getById(id) {
+        return await CriminalRecordModel.findById(id)
         .populate('pcco');
     }
 
-    static insert(criminal_record) {
+    static async insert(criminal_record) {
         const model = new CriminalRecordModel(criminal_record);
         return model.save()
         .then(saved => {return saved.id;});
     }
 
-    static update(criminal_record) {
-        return CriminalRecordModel.findOneAndUpdate({_id: criminal_record.id}, criminal_record, { new: true });
+    static async update(criminal_record) {
+        return await CriminalRecordModel.findOneAndUpdate({_id: criminal_record.id}, criminal_record, { new: true });
     }
 
-    static delete(id) {
+    static async delete(id) {
         return CriminalRecordModel.findOne({ _id: id })
             .then( () => {
                 return Promise.all([

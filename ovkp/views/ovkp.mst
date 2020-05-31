@@ -41,21 +41,20 @@
                         <br><h6 class="card-text"><b>Паспортні дані:</b></h6><br>
                         <p class="card-text">Серія: {{pcco.passport_series}}</p>
                         <p class="card-text">Номер: {{pcco.passport_number}}</p>
-                        <p class="card-text">Орган, що видав паспорт: {{pcco.passport_issuing_authority}}</p>                        
+                        <p class="card-text">Орган, що видав паспорт: {{pcco.passport_issuing_authority}}</p>
+                        <p class="card-text">Реєстраційний номер облікової картки платника податків: {{pcco.personal_code}}</p>                 
                         <br><h6 class="card-text"><b>Персональні дані:</b></h6><br>
                         <p class="card-text">Місце народження: {{pcco.birth_place}}</p>
                         <p class="card-text">Дата народження: {{pcco.birth_date}}</p>
                         <p class="card-text">Місце проживання на час скоєння правопорушення: {{pcco.residence}}</p>
                         <p class="card-text">Місце роботи на час скоєння правопорушення: {{pcco.work_place}}</p>
-                        <p class="card-text">Посада на час скоєння правопорушення: {{pcco.work_position}}</p>
-                        <br><h6 class="card-text"><b>Інше:</b></h6><br>
-                        <p class="card-text">Реєстраційний номер облікової картки платника податків: {{pcco.personal_code}}</p>
-                        {{#pcco.is_personal}}
-                        <p class="card-text">Фізична особа</p>
-                        {{/pcco.is_personal}}
-                        {{^pcco.is_personal}}
-                        <p class="card-text">Юридична особа</p>
-                        {{/pcco.is_personal}}
+                        <p class="card-text">Посада на час скоєння правопорушення: {{pcco.work_position}}</p>                        
+                            {{#pcco.is_personal}}
+                            <p class="card-text"><small class="text-muted">Фізична особа</small></p>
+                            {{/pcco.is_personal}}
+                            {{^pcco.is_personal}}
+                            <p class="card-text"><small class="text-muted">Юридична особа</small></p>
+                            {{/pcco.is_personal}}
                         <a href="../ovkp_modify/{{pcco._id}}" class="btn btn-info">Оновити</a>                    
                     </div>
                 </div>

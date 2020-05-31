@@ -33,99 +33,109 @@
     <div class="container-fluid">
         <div class="row justify-content-md-center mt-3">
             <div class="col">
-                <h4 class="card-header header text-center">Судова справа № <b>RG72</b></h4>
+                <h4 class="card-header header text-center">Судова справа № <b>{{record.court_case_number}}</b></h4>
                 <div class="card-group">
                     <div class="card">
                         <h4 class="card-header">Особисті дані на час скоєння правопорушення</h4>
                         <div class="card-body">
                             <h6 class="card-title"><b>Прізвище:</b></h6>
-                            <p class="card-text">Павлік</p>
+                            <p class="card-text">{{pcco.surname}}</p>
                             <h6 class="card-title"><b>Ім'я:</b></h6>
-                            <p class="card-text">Віктор</p>
+                            <p class="card-text">{{pcco.first_name}}</p>
                             <h6 class="card-title"><b>По батькові:</b></h6>
-                            <p class="card-text">Павлікович</p>
+                            <p class="card-text">{{pcco.last_name}}</p>
                             <h6 class="card-title"><b>Посада:</b></h6>
-                            <p class="card-text">Професор</p>
+                            <p class="card-text">{{pcco.work_position}}</p>
                             <h6 class="card-title"><b>Місце роботи:</b></h6>
-                            <p class="card-text">КПІ</p>
+                            <p class="card-text">{{pcco.work_place}}</p>
                             <h6 class="card-title"><b>Дата народження:</b></h6>
-                            <p class="card-text">2000-01-13</p>
+                            <p class="card-text">{{pcco.birth_date}}</p>
                             <h6 class="card-title"><b>Місце народження:</b></h6>
-                            <p class="card-text">Київ, Україна</p>
+                            <p class="card-text">{{pcco.birth_place}}</p>
                             <h6 class="card-title"><b>Місце проживання:</b></h6>
-                            <p class="card-text">Київ, Україна</p>
+                            <p class="card-text">{{pcco.residence}}</p>
+                            {{#pcco.is_personal}}
                             <p class="card-text"><small class="text-muted">Фізична особа</small></p>
+                            {{/pcco.is_personal}}
+                            {{^pcco.is_personal}}
+                            <p class="card-text"><small class="text-muted">Юридична особа</small></p>
+                            {{/pcco.is_personal}}
                         </div>
                     </div>
                     <div class="card">
                         <h4 class="card-header">Паспортні дані</h4>
                         <div class="card-body">
                             <h6 class="card-title"><b>Серія:</b></h6>
-                            <p class="card-text">КП7273</p>
+                            <p class="card-text">{{pcco.passport_series}}</p>
                             <h6 class="card-title"><b>Номер:</b></h6>
-                            <p class="card-text">101505</p>
+                            <p class="card-text">{{pcco.passport_number}}</p>
                             <h6 class="card-title"><b>Орган, що видав:</b></h6>
-                            <p class="card-text">0203</p>
+                            <p class="card-text">{{pcco.passport_issuing_authority}}</p>
                             <h6 class="card-title"><b>Реєстраційний номер облікової картки платника податків:</b></h6>
-                            <p class="card-text">ИР35235Т</p>
+                            <p class="card-text">{{pcco.personal_code}}</p>
                         </div>
                     </div>
                     <div class="card">
                         <h4 class="card-header">Інформація про судову справу</h4>
                         <div class="card-body">
                             <h6 class="card-title"><b>Назва суду, що виніс вирок:</b></h6>
-                            <p class="card-text">КПІ</p>
+                            <p class="card-text">{{record.court_name}}</p>
                             <h6 class="card-title"><b>Дата винесення вироку судом:</b></h6>
-                            <p class="card-text">2020-05-10</p>
+                            <p class="card-text">{{record.court_sentence_date}}</p>
                             <h6 class="card-title"><b>Номер вироку суду:</b></h6>
-                            <p class="card-text">ПН343554</p>
+                            <p class="card-text">{{record.court_sentence_number}}</p>
                             <h6 class="card-title"><b>Дата набрання законної сили судовим рішенням про притягнення особи до відповідальності:</b></h6>
-                            <p class="card-text">2020-05-20</p>
+                            <p class="card-text">{{record.court_sentence_applying_date}}</p>
                             <h6 class="card-title"><b>Дата погашення судимості:</b></h6>
-                            <p class="card-text">2021-06-01</p>
+                            <p class="card-text">{{record.criminal_record_cancellation_date}}</p>
                             <h6 class="card-title"><b>Підстава для погашення судимості:</b></h6>
-                            <p class="card-text">Закінчення університету</p>
+                            <p class="card-text">{{record.criminal_record_cancellation_reason}}</p>
+                            {{#record.is_active}}
                             <p class="card-text"><small class="text-muted">Погашено</small></p>
+                            {{/record.is_active}}
+                            {{^record.is_active}}
+                            <p class="card-text"><small class="text-muted">Не погашено</small></p>
+                            {{/record.is_active}}
                         </div>
                     </div>
                     <div class="card">
                         <h4 class="card-header">Інформація про вчинення правопорушення</h4>
                         <div class="card-body">
                             <h6 class="card-title"><b>Склад корупційного правопорушення:</b></h6>
-                            <p class="card-text">Порушення кодексу честі</p>
+                            <p class="card-text">{{record.offence_description}}</p>
                             <h6 class="card-title"><b>Cпосіб вчинення:</b></h6>
-                            <p class="card-text">Руками</p>
+                            <p class="card-text">{{record.offence_method}}</p>
                             <h6 class="card-title"><b>Місце скоєння:</b></h6>
-                            <p class="card-text">15 корпус</p>
+                            <p class="card-text">{{record.offence_location}}</p>
                         </div>
                     </div>
                     <div class="card">
                         <h4 class="card-header">Інформація про покарання</h4>
                         <div class="card-body">
                             <h6 class="card-title"><b>Номер кримінальної статті:</b></h6>
-                            <p class="card-text">Стаття 12. Порушення кодексу честі КПІ</p>
+                            <p class="card-text">{{record.criminal_article}}</p>
                             <h6 class="card-title"><b>Вид покарання (стягнення), суть задоволення позовних вимог:</b></h6>
-                            <p class="card-text">4 роки у КПІ</p>
+                            <p class="card-text">{{record.criminal_action_type}}</p>
                             <h6 class="card-title"><b>Дата звільнення юридичної особи від застосування заходів кримінально-правового характеру:</b></h6>
-                            <p class="card-text">2021-06-01</p>
+                            <p class="card-text">{{record.criminal_action_cancellation_date}}</p>
                             <h6 class="card-title"><b>Підстава для звільнення юридичної особи від застосування заходів кримінально-правового характеру:</b></h6>
-                            <p class="card-text">Закінчення університету</p>
+                            <p class="card-text">{{record.criminal_action_cancellation_reason}}</p>
                             <h6 class="card-title"><b>Вид дисциплінарного стягнення:</b></h6>
-                            <p class="card-text">Ремнем по</p>
+                            <p class="card-text">{{record.disciplinary_action_type}}</p>
                             <h6 class="card-title"><b>Реквізити розпорядчого документа про накладення дисциплінарного стягнення:</b></h6>
-                            <p class="card-text">РГО653</p>
+                            <p class="card-text">{{record.disciplinary_action_details}}</p>
                             <h6 class="card-title">
                                 <b>
                                     Дата скасування розпорядчого документа про накладення дисциплінарного стягнення:
                                 </b>
                             </h6>
-                            <p class="card-text">2020-05-20</p>
+                            <p class="card-text">{{record.disciplinary_action_cancellation_date}}</p>
                             <h6 class="card-title">
                                 <b>
                                     Підстава для скасування розпорядчого документа про накладення дисциплінарного стягнення:
                                 </b>
                             </h6>
-                            <p class="card-text">Закінчення семестру</p>
+                            <p class="card-text">{{record.disciplinary_action_cancellation_reason}}</p>
                         </div>
                     </div>
                 </div>
