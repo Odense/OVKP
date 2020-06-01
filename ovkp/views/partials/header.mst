@@ -15,7 +15,7 @@
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="/articles">Перегляд статей КУпАП</a>
                         <a class="dropdown-item" href="/ovkps">Перегляд списку ОВКП</a>
-                        <a class="dropdown-item" href="/records">Перегляд списку судових справ</a>
+                        <a class="dropdown-item" href="/criminal_records">Перегляд списку судових справ</a>
                         {{^role}}
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="/registrars">Перегляд Реєстраторів</a>

@@ -63,7 +63,7 @@
                                 </div>
                                 <div class="col-10 mt-3">
                                         <select id="article_select" name="article_id" class="form-control">
-                                            <option selected value="">Номер статті по якій винесено судове рішення</option>
+                                            {{! <option selected value="">Номер статті по якій винесено судове рішення</option> }}
                                             {{#articles}}
                                                 <option value="{{id}}">{{article_number}}. {{article_title}}</option>
                                             {{/articles}}
@@ -103,32 +103,36 @@
         </div>
 
         <div class="row justify-content-md-center mt-3">
-            <div class="col">
+            <div class="col">                
                 <div class="card-header header-bottom">
-                    <a class="btn btn-dark btn-sm rad" href="./criminal_record_modify" role="button">ОНОВИТИ</a>
-                    <a class="btn btn-dark btn-sm rad ml-2" href="./criminal_record" role="button">ДЕТАЛЬНІШЕ</a>
-                </div>
+                {{#user}}            
+                    <a class="btn btn-dark btn-sm rad" href="../criminal_record_modify/{{_id}}" role="button">ОНОВИТИ</a>
+                    <a class="btn btn-dark btn-sm rad ml-2" href="../criminal_record/{{_id}}" role="button">ДЕТАЛЬНІШЕ</a>
+                {{/user}}
+                </div>                
                 <div class="card-group">
+                    {{#ovkps}}
                     <div class="card">
                         <div class="card-body">
                             <p class="card-title"><b>Прізвище на час скоєння правопорушення:</b></p>
-                            <p class="card-text">Павлік</p>
+                            <p class="card-text">{{surname}}</p>
                             <p class="card-title"><b>Ім'я на час скоєння правопорушення:</b></p>
-                            <p class="card-text">Віктор</p>
+                            <p class="card-text">{{first_name}}</p>
                             <p class="card-title"><b>По батькові на час скоєння правопорушення:</b></p>
-                            <p class="card-text">Павлікович</p>
+                            <p class="card-text">{{last_name}}</p>
                         </div>
                     </div>
                     <div class="card">
                         <div class="card-body">
                             <p class="card-title"><b>Місце роботи на час вчинення корупційного правопорушення:</b></p>
-                            <p class="card-text">КП7273</p>
+                            <p class="card-text">{{work_place}}</p>
                             <p class="card-title"><b>Посада на час вчинення корупційного правопорушення:</b></p>
-                            <p class="card-text">101505</p>
+                            <p class="card-text">{{}}</p>
                             <p class="card-title"><b>Склад корупційного правопорушення:</b></p>
                             <p class="card-text">0203</p>
                         </div>
                     </div>
+                    {{/ovkps}}
                     <div class="card">
                         <div class="card-body">
                             <p class="card-title">

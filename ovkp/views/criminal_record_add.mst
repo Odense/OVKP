@@ -34,7 +34,6 @@
         <div class="row justify-content-md-center mt-3">
             <div class="col">
                 <h4 class="card-header header text-center">Нова судова справа</h4>
-
                 <div class="card-group">
                 <form action="../criminal_record_add" enctype="multipart/form-data" method="POST">
                     <div class="card">
@@ -70,12 +69,12 @@
                                 </div>
                                 <div class="form-group">
                                     <div class="custom-control custom-radio">
-                                        <input type="radio" id="is_active" name="is_active" class="custom-control-input" required value="true">
-                                        <label class="custom-control-label" for="is_active">Погашено</label>
+                                        <input type="radio" id="is_active1" name="is_active" class="custom-control-input" value="true" required >
+                                        <label class="custom-control-label" for="is_active1">Погашено</label>
                                     </div>
                                     <div class="custom-control custom-radio">
-                                        <input type="radio" id="is_active" name="is_active" class="custom-control-input" value="false">
-                                        <label class="custom-control-label" for="is_active">Не погашено</label>
+                                        <input type="radio" id="is_active2" name="is_active" class="custom-control-input" value="false">
+                                        <label class="custom-control-label" for="is_active2">Не погашено</label>
                                     </div>
                                 </div>
                         </div>
@@ -96,8 +95,8 @@
                                     <input type="text" class="form-control" id="offence_location" placeholder="Місце скоєння:" name="offence_location">
                                 </div>
                                 <div class="form-group">
-                                    <label for="article_select">Номер паспорту особи, яка вчинила правопорушення:</label>
-                                    <select id="article_select" class="form-control" name="pcco_id">
+                                    <label for="passport_select">Номер паспорту особи, яка вчинила правопорушення:</label>
+                                    <select id="passport_select" class="form-control" name="pcco_id">
                                         {{#pccos}}
                                             <option value="{{_id}}">{{passport_number}}</option>
                                         {{/pccos}}
@@ -111,9 +110,8 @@
                                 <div class="form-group">
                                     <label for="article_select">Номер кримінальної статті:</label>
                                     <select id="article_select" class="form-control" name="criminal_article">
-                                        <option selected>Оберіть кримінальну статтю</option>
                                         {{#articles}}
-                                            <option value="{{article_title}}">{{article_title}}</option>
+                                            <option value="{{_id}}">{{article_title}}</option>
                                         {{/articles}}                                        
                                     </select>
                                 </div>
@@ -147,15 +145,13 @@
                                 </div>
                         </div>
                     </div>
+                    <div class="row justify-content-md-center mt-3 mb-3">
+                        <div class="col-1">
+                            <button type="submit" class="btn btn-success btn-lg">ЗБЕРЕГТИ</button>
+                        </div>
+                    </div>
                 </form>
                 </div>
-
-            </div>
-        </div>
-
-        <div class="row justify-content-md-center mt-3 mb-3">
-            <div class="col-1">
-                <button type="submit" class="btn btn-success btn-lg">ЗБЕРЕГТИ</button>
             </div>
         </div>
     </div>

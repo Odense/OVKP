@@ -34,13 +34,14 @@
     <div class="container">
         <div class="row justify-content-md-center mt-5">
             <div class="col-10">
-                <h5 class="card-header header text-center">Статі КУпАП</h5>
+                <h5 class="card-header header text-center">Список судових справ</h5>
 
                 {{#record_l}}
                 <div class="card mt-2" style="width: 100%;">
                     <div class="card-body">
                         <h5 class="card-title">Судова справа №{{court_case_number}}</h5>                        
                         <a href="../criminal_record_modify/{{_id}}" class="btn btn-info">Оновити</a>
+                        <a href="../criminal_records/{{_id}}" class="btn btn-info">Переглянути</a>
                     </div>
                 </div>
                 {{/record_l}}

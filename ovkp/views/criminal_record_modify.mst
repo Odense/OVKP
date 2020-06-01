@@ -39,138 +39,124 @@
 
         <div class="row justify-content-md-center mt-3">
             <div class="col">
-                <h4 class="card-header header text-center">Судова справа № <b>RG72</b></h4>
-
-                <div class="card-group">
-                    <div class="card">
-                        <h4 class="card-header">Інформація про судову справу</h4>
-                        <div class="card-body">
-                            <form>
+                <h4 class="card-header header text-center">Судова справа № <b>{{record.court_case_number}}</b></h4>
+                <form action="../criminal_record_modify/{{record._id}}" enctype="multipart/form-data" method="POST">
+                    <div class="card-group">
+                        <div class="card">
+                            <h4 class="card-header">Інформація про судову справу</h4>
+                            <div class="card-body">                            
                                 <div class="form-group">
                                     <label for="court_name">Назва суду, що виніс вирок:</label>
-                                    <input type="text" class="form-control" id="court_name" placeholder="">
+                                    <input type="number" class="form-control" id="court_name" value="{{record.court_name}}" name="court_name">
                                 </div>
                                 <div class="form-group">
                                     <label for="court_sentence_date">Дата винесення вироку судом:</label>
-                                    <input type="date" class="form-control" id="court_sentence_date" placeholder="">
+                                    <input type="date" class="form-control" id="court_sentence_date" value="{{record.court_sentence_date}}" name="court_sentence_date">
                                 </div>
                                 <div class="form-group">
                                     <label for="court_sentence_number">Номер вироку суду:</label>
-                                    <input type="text" class="form-control" id="court_sentence_number" placeholder="">
+                                    <input type="text" class="form-control" id="court_sentence_number" value="{{record.court_sentence_number}}" name="court_sentence_number">
                                 </div>
                                 <div class="form-group">
                                     <label for="court_sentence_applying_date">Дата набрання законної сили судовим рішенням про притягнення особи до відповідальності:</label>
-                                    <input type="date" class="form-control" id="court_sentence_applying_date" placeholder="">
+                                    <input type="date" class="form-control" id="court_sentence_applying_date" value="{{record.court_sentence_applying_date}}" name="court_sentence_applying_date">
                                 </div>
                                 <div class="form-group">
                                     <label for="criminal_record_cancellation_date">Дата погашення судимості:</label>
-                                    <input type="date" class="form-control" id="criminal_record_cancellation_date" placeholder="">
+                                    <input type="date" class="form-control" id="criminal_record_cancellation_date" value="{{record.criminal_record_cancellation_date}}" name="criminal_record_cancellation_date">
                                 </div>
                                 <div class="form-group">
                                     <label for="criminal_record_cancellation_reason">Підстава для погашення судимості:</label>
-                                    <input type="text" class="form-control" id="criminal_record_cancellation_reason" placeholder="">
+                                    <input type="text" class="form-control" id="criminal_record_cancellation_reason" value="{{record.criminal_record_cancellation_reason}}" name="criminal_record_cancellation_reason">
                                 </div>
                                 <div class="form-group">
-                                    <label for="criminal_record_cancellation_reason">Підстава для погашення судимості:</label>
-                                    <input type="text" class="form-control" id="criminal_record_cancellation_reason" placeholder="">
-                                </div>
-                                <div class="form-group">
-                                    <div class="custom-control custom-radio">
-                                        <input type="radio" id="customRadio1" name="customRadio" class="custom-control-input">
-                                        <label class="custom-control-label" for="customRadio1">Погашено</label>
+                                   <div class="custom-control custom-radio">
+                                        <input type="radio" id="is_active1" name="is_active" class="custom-control-input" value="true" required >
+                                        <label class="custom-control-label" for="is_active1">Погашено</label>
                                     </div>
                                     <div class="custom-control custom-radio">
-                                        <input type="radio" id="customRadio2" name="customRadio" class="custom-control-input">
-                                        <label class="custom-control-label" for="customRadio2">Не погашено</label>
+                                        <input type="radio" id="is_active2" name="is_active" class="custom-control-input" value="false">
+                                        <label class="custom-control-label" for="is_active2">Не погашено</label>
                                     </div>
-                                </div>
-                            </form>
+                                </div>                            
+                            </div>
                         </div>
-                    </div>
-                    <div class="card">
-                        <h4 class="card-header">Інформація про вчинення правопорушення</h4>
-                        <div class="card-body">
-                            <form>
+                        <div class="card">
+                            <h4 class="card-header">Інформація про вчинення правопорушення</h4>
+                            <div class="card-body">                            
                                 <div class="form-group">
                                     <label for="offence_description">Склад корупційного правопорушення:</label>
-                                    <input type="text" class="form-control" id="offence_description" placeholder="">
+                                    <input type="text" class="form-control" id="offence_description" value="{{record.offence_description}}" name="offence_description">
                                 </div>
                                 <div class="form-group">
                                     <label for="offence_method">Cпосіб вчинення:</label>
-                                    <input type="text" class="form-control" id="offence_method" placeholder="">
+                                    <input type="text" class="form-control" id="offence_method" value="{{record.offence_method}}" name="offence_method">
                                 </div>
                                 <div class="form-group">
                                     <label for="offence_location">Місце скоєння:</label>
-                                    <input type="text" class="form-control" id="offence_location" placeholder="">
+                                    <input type="text" class="form-control" id="offence_location" value="{{record.offence_location}}" name="offence_location">
                                 </div>
                                 <div class="form-group">
                                     <label for="article_select">Номер паспорту особи, яка вчинила правопорушення:</label>
-                                    <select id="article_select" class="form-control">
-                                        <option selected>Номеру паспорту ОВКП...</option>
-                                        <option value="1">КП1345657</option>
-                                        <option value="2">Two</option>
-                                        <option value="3">Three</option>
+                                    <select id="passport_select" class="form-control" name="pcco_id">
+                                        {{#pccos}}
+                                            <option value="{{_id}}">{{passport_number}}</option>
+                                        {{/pccos}}
                                     </select>
-                                </div>
-                            </form>
+                                </div>                            
+                            </div>
                         </div>
-                    </div>
-                    <div class="card">
-                        <h4 class="card-header">Інформація про покарання</h4>
-                        <div class="card-body">
-                            <form>
+                        <div class="card">
+                            <h4 class="card-header">Інформація про покарання</h4>
+                            <div class="card-body">                            
                                 <div class="form-group">
                                     <label for="article_select">Номер кримінальної статті:</label>
-                                    <select id="article_select" class="form-control">
-                                        <option selected>Оберіть кримінальну статтю</option>
-                                        <option value="1">Стаття 12. Порушення кодексу честі КПІ</option>
-                                        <option value="2">Two</option>
-                                        <option value="3">Three</option>
+                                    <select id="article_select" class="form-control" name="criminal_article">
+                                        {{#articles}}
+                                            <option value="{{_id}}">{{article_title}}</option>
+                                        {{/articles}}                                        
                                     </select>
                                 </div>
                                 <div class="form-group">
                                     <label for="criminal_action_type">Вид покарання (стягнення), суть задоволення позовних вимог:</label>
-                                    <input type="text" class="form-control" id="criminal_action_type" placeholder="">
+                                    <input type="text" class="form-control" id="criminal_action_type" value="{{record.criminal_action_type}}" name="criminal_action_type">
                                 </div>
                                 <div class="form-group">
                                     <label for="criminal_action_cancellation_date">Дата звільнення юридичної особи від застосування заходів кримінально-правового характеру:</label>
-                                    <input type="date" class="form-control" id="criminal_action_cancellation_date" placeholder="">
+                                    <input type="date" class="form-control" id="criminal_action_cancellation_date" value="{{record.criminal_action_cancellation_date}}" name="criminal_action_cancellation_date">
                                 </div>
                                 <div class="form-group">
                                     <label for="criminal_action_cancellation_reason">Підстава для звільнення юридичної особи від застосування заходів кримінально-правового характеру:</label>
-                                    <input type="text" class="form-control" id="criminal_action_cancellation_reason" placeholder="">
+                                    <input type="text" class="form-control" id="criminal_action_cancellation_reason" value="{{record.criminal_action_cancellation_reason}}" name="criminal_action_cancellation_reason">
                                 </div>
                                 <div class="form-group">
                                     <label for="disciplinary_action_type">Вид дисциплінарного стягнення:</label>
-                                    <input type="text" class="form-control" id="disciplinary_action_type" placeholder="">
+                                    <input type="text" class="form-control" id="disciplinary_action_type" value="{{record.disciplinary_action_type}}" name="disciplinary_action_type">
                                 </div>
                                 <div class="form-group">
                                     <label for="disciplinary_action_details">Реквізити розпорядчого документа про накладення дисциплінарного стягнення:</label>
-                                    <input type="text" class="form-control" id="disciplinary_action_details" placeholder="">
+                                    <input type="text" class="form-control" id="disciplinary_action_details" value="{{record.disciplinary_action_details}}" name="disciplinary_action_details">
                                 </div>
                                 <div class="form-group">
                                     <label for="disciplinary_action_cancellation_date">Дата скасування розпорядчого документа про накладення дисциплінарного стягнення:</label>
-                                    <input type="date" class="form-control" id="disciplinary_action_cancellation_date" placeholder="">
+                                    <input type="date" class="form-control" id="disciplinary_action_cancellation_date" value="{{record.disciplinary_action_cancellation_date}}" name="disciplinary_action_cancellation_date">
                                 </div>
                                 <div class="form-group">
                                     <label for="disciplinary_action_cancellation_reason">Підстава для скасування розпорядчого документа про накладення дисциплінарного стягнення:</label>
-                                    <input type="text" class="form-control" id="disciplinary_action_cancellation_reason" placeholder="">
+                                    <input type="text" class="form-control" id="disciplinary_action_cancellation_reason" value="{{record.disciplinary_action_cancellation_reason}}" name="disciplinary_action_cancellation_reason">
                                 </div>
-                            </form>
-                        </div>
+                                <div class="row justify-content-md-center mt-3 mb-3">
+                                    <div class="col-1">
+                                        <button type="submit" class="btn btn-success btn-lg">ЗБЕРЕГТИ</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>                    
                     </div>
-                </div>
-
-            </div>
-        </div>
-
-        <div class="row justify-content-md-center mt-3 mb-3">
-            <div class="col-1">
-                <button type="submit" class="btn btn-success btn-lg">ЗБЕРЕГТИ</button>
+                </form>
             </div>
         </div>
     </div>
-
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>

@@ -19,8 +19,8 @@ class CriminalArticles {
         return await CriminalArticlesModel.find();
     }
 
-    static getById(id) {
-        return CriminalArticlesModel.findById(id);
+    static async getById(id) {
+        return await CriminalArticlesModel.findById(id);
     }
     
     static insert(article) {
@@ -28,8 +28,8 @@ class CriminalArticles {
         return model.save()
         .then(saved => {return saved.id;});
     }
-    static update(article) {
-        return CriminalArticlesModel.findOneAndUpdate({_id: article.id}, article, { new: true });
+    static async update(article) {
+        return await CriminalArticlesModel.findOneAndUpdate({_id: article.id}, article, { new: true });
     }
     static delete(id) {
         return CriminalArticlesModel.findOne({ _id: id })

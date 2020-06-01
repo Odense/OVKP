@@ -107,23 +107,27 @@ app.post('/article_add', function (req, res) {
         .catch(err => res.status(500).send(err.toString()));
 });
 
-app.get(`/article_modify/:id`, function (req, res) {
-    CriminalArticles.getById(req.params.id)
-        .then(article => res.render(`article_modify`, { article: article, user: curr_user }))
-        .catch(err => res.status(500).send(err.toString()));
+app.get(`/article_modify/:id`, async (req, res) => {
+    try {
+        const article = CriminalArticles.getById(req.params.id);
+        res.render(`article_modify`, { article: article, user: curr_user });
+    } catch (err) {
+        res.status(500).send(err.toString());
+    }
 });
 
-app.post('/article_modify', function (req, res) {
-    const aricleId = req.body.aricleId;
-    CriminalArticles.getById(aricleId)
-        .then(article => {
-            article.article_number = req.body.article_number;
-            article.article_title = req.body.article_title;
-            article.article_content = req.body.article_content;
-            return CriminalArticles.update(article);
-        })
-        .then(res.redirect(`/articles`))
-        .catch(err => res.status(500).send(err.toString()));
+app.post('/article_modify', async (req, res) => {
+    try {
+        const aricleId = req.body.aricleId;
+        const article = await CriminalArticles.getById(aricleId);
+        article.article_number = req.body.article_number;
+        article.article_title = req.body.article_title;
+        article.article_content = req.body.article_content;
+        await CriminalArticles.update(article);
+        res.redirect(`/articles`);
+    } catch (err) {
+        res.status(500).send(err.toString());
+    }
 });
 
 /************************************
@@ -144,7 +148,7 @@ app.get(`/criminal_records`, async (req, res) => {
 app.get(`/criminal_records/:id`, async (req, res) => {
     try {
         const record = await CriminalRecord.getById(req.params.id);
-        res.render(`criminal_record`, { record: record, user: curr_user, pcco: record.pcco });
+        res.render(`criminal_record`, { record: record, user: curr_user, pcco: record.pcco, article: record.criminal_article });
     } catch (err) {
         err => res.status(500).send(err.toString());
     }
@@ -162,11 +166,12 @@ app.get(`/criminal_record_add`, async (req, res) => {
 
 app.post(`/criminal_record_add`, async (req, res) => { // todo ебучие логи
     try {
+        const article = await CriminalArticles.getById(req.body.criminal_article);
         const pcco = await PCCO.getById(req.body.pcco_id);
         const record_to_add = new CriminalRecord(pcco, req.body.court_name, req.body.court_case_number, req.body.court_sentence_date,
                                                 req.body.court_sentence_number, req.body.court_sentence_applying_date,
                                                 req.body.criminal_record_cancellation_date, req.body.criminal_record_cancellation_reason,
-                                                req.body.is_active === 'true', req.body.criminal_article, req.body.criminal_action_type,
+                                                req.body.is_active === 'true', article, req.body.criminal_action_type,
                                                 req.body.criminal_action_cancellation_date, req.body.criminal_action_cancellation_reason,
                                                 req.body.disciplinary_action_type, req.body.disciplinary_action_details,
                                                 req.body.disciplinary_action_cancellation_date, req.body.disciplinary_action_cancellation_reason,
@@ -178,13 +183,47 @@ app.post(`/criminal_record_add`, async (req, res) => { // todo ебучие ло
     }
 });
 
-app.get(`/criminal_record_modify/:id`, function (req, res) { // todo
-
-    res.render(`criminal_record_modify`, { user: curr_user });
+app.get(`/criminal_record_modify/:id`, async (req, res) => {
+    try {
+        const pcco_l = await PCCO.getAll();
+        const article_l = await CriminalArticles.getAll();
+        const record_to_update = await PCCO.getById(req.params.id);
+        res.render(`criminal_record_modify`, { user: curr_user, record: record_to_update, pccos: pcco_l, articles: article_l });
+    } catch (err) {
+        res.status(500).send(err.toString());
+    }
 });
 
-app.post(`/criminal_record_modify/:id`, function (req, res) { // todo ебучие логи
-    res.render(`criminal_record_modify`, { user: curr_user });
+app.post(`/criminal_record_modify/:id`, async (req, res) => { // todo ебучие логи
+    try {
+        const article = await CriminalArticles.getById(req.body.criminal_article);
+        const pcco = await PCCO.getById(req.body.pcco_id);
+        let record_to_update = await CriminalRecord.getById(req.params.id);
+        record_to_update.pcco = pcco, 
+        record_to_update.court_name = req.body.court_name; 
+        record_to_update.court_case_number = req.body.court_case_number;
+        record_to_update.court_sentence_date = req.body.court_sentence_date;
+        record_to_update.court_sentence_number = req.body.court_sentence_number;
+        record_to_update.court_sentence_applying_date = req.body.court_sentence_applying_date;
+        record_to_update.criminal_record_cancellation_date = req.body.criminal_record_cancellation_date;
+        record_to_update.criminal_record_cancellation_reason = req.body.criminal_record_cancellation_reason;
+        record_to_update.is_active = req.body.is_active === 'true';
+        record_to_update.article = article;
+        record_to_update.criminal_action_type = req.body.criminal_action_type;
+        record_to_update.criminal_action_cancellation_date = req.body.criminal_action_cancellation_date;
+        record_to_update.criminal_action_cancellation_reason = req.body.criminal_action_cancellation_reason;
+        record_to_update.disciplinary_action_type = req.body.disciplinary_action_type;
+        record_to_update.disciplinary_action_details = req.body.disciplinary_action_details;
+        record_to_update.disciplinary_action_cancellation_date = req.body.disciplinary_action_cancellation_date;
+        record_to_update.disciplinary_action_cancellation_reason = req.body.disciplinary_action_cancellation_reason;
+        record_to_update.offence_description = req.body.offence_description;
+        record_to_update.offence_method = req.body.offence_method;
+        record_to_update.offence_location = req.body.offence_location;
+        const updated_record = await CriminalRecord.update(record_to_update);
+        res.redirect(`/ovkps/${updated_record._id}`);
+    } catch (err) {
+        res.status(500).send(err.toString());
+    }
 });
 
 /************************************
