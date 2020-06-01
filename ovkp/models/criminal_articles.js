@@ -15,8 +15,8 @@ class CriminalArticles {
         this.article_content = article_content;
     }
 
-    static getAll() {
-        return CriminalArticlesModel.find();
+    static async getAll() {
+        return await CriminalArticlesModel.find();
     }
 
     static getById(id) {

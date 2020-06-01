@@ -36,50 +36,46 @@
                 <h4 class="card-header header text-center">Нова судова справа</h4>
 
                 <div class="card-group">
-                <form>
+                <form action="../criminal_record_add" enctype="multipart/form-data" method="POST">
                     <div class="card">
                         <h4 class="card-header">Інформація про судову справу</h4>
                         <div class="card-body">
                                 <div class="form-group">
                                     <label for="court_case_number">Номер судової справи:</label>
-                                    <input type="number" class="form-control" id="court_case_number" placeholder="">
+                                    <input type="number" class="form-control" id="court_case_number" placeholder="Номер судової справи" name="court_case_number">
                                 </div>
                                 <div class="form-group">
                                     <label for="court_name">Назва суду, що виніс вирок:</label>
-                                    <input type="text" class="form-control" id="court_name" placeholder="">
+                                    <input type="text" class="form-control" id="court_name" placeholder="Назва суду, що виніс вирок:" name="court_name">
                                 </div>
                                 <div class="form-group">
                                     <label for="court_sentence_date">Дата винесення вироку судом:</label>
-                                    <input type="date" class="form-control" id="court_sentence_date" placeholder="">
+                                    <input type="date" class="form-control" id="court_sentence_date" placeholder="Дата винесення вироку судом:" name="court_sentence_date">
                                 </div>
                                 <div class="form-group">
                                     <label for="court_sentence_number">Номер вироку суду:</label>
-                                    <input type="text" class="form-control" id="court_sentence_number" placeholder="">
+                                    <input type="text" class="form-control" id="court_sentence_number" placeholder="Номер вироку суду:" name="court_sentence_number">
                                 </div>
                                 <div class="form-group">
                                     <label for="court_sentence_applying_date">Дата набрання законної сили судовим рішенням про притягнення особи до відповідальності:</label>
-                                    <input type="date" class="form-control" id="court_sentence_applying_date" placeholder="">
+                                    <input type="date" class="form-control" id="court_sentence_applying_date" placeholder="Дата набрання законної сили судовим рішенням про притягнення особи до відповідальності:" name="court_sentence_applying_date">
                                 </div>
                                 <div class="form-group">
                                     <label for="criminal_record_cancellation_date">Дата погашення судимості:</label>
-                                    <input type="date" class="form-control" id="criminal_record_cancellation_date" placeholder="">
+                                    <input type="date" class="form-control" id="criminal_record_cancellation_date" placeholder="Дата погашення судимості:" name="criminal_record_cancellation_date">
                                 </div>
                                 <div class="form-group">
                                     <label for="criminal_record_cancellation_reason">Підстава для погашення судимості:</label>
-                                    <input type="text" class="form-control" id="criminal_record_cancellation_reason" placeholder="">
-                                </div>
-                                <div class="form-group">
-                                    <label for="criminal_record_cancellation_reason">Підстава для погашення судимості:</label>
-                                    <input type="text" class="form-control" id="criminal_record_cancellation_reason" placeholder="">
+                                    <input type="text" class="form-control" id="criminal_record_cancellation_reason" placeholder="Підстава для погашення судимості:" name="criminal_record_cancellation_reason">
                                 </div>
                                 <div class="form-group">
                                     <div class="custom-control custom-radio">
-                                        <input type="radio" id="customRadio1" name="customRadio" class="custom-control-input">
-                                        <label class="custom-control-label" for="customRadio1">Погашено</label>
+                                        <input type="radio" id="is_active" name="is_active" class="custom-control-input" required value="true">
+                                        <label class="custom-control-label" for="is_active">Погашено</label>
                                     </div>
                                     <div class="custom-control custom-radio">
-                                        <input type="radio" id="customRadio2" name="customRadio" class="custom-control-input">
-                                        <label class="custom-control-label" for="customRadio2">Не погашено</label>
+                                        <input type="radio" id="is_active" name="is_active" class="custom-control-input" value="false">
+                                        <label class="custom-control-label" for="is_active">Не погашено</label>
                                     </div>
                                 </div>
                         </div>
@@ -89,21 +85,21 @@
                         <div class="card-body">
                                 <div class="form-group">
                                     <label for="offence_description">Склад корупційного правопорушення:</label>
-                                    <input type="text" class="form-control" id="offence_description" placeholder="">
+                                    <input type="text" class="form-control" id="offence_description" placeholder="Склад корупційного правопорушення:" name="offence_description">
                                 </div>
                                 <div class="form-group">
                                     <label for="offence_method">Cпосіб вчинення:</label>
-                                    <input type="text" class="form-control" id="offence_method" placeholder="">
+                                    <input type="text" class="form-control" id="offence_method" placeholder="Cпосіб вчинення:" name="offence_method">
                                 </div>
                                 <div class="form-group">
                                     <label for="offence_location">Місце скоєння:</label>
-                                    <input type="text" class="form-control" id="offence_location" placeholder="">
+                                    <input type="text" class="form-control" id="offence_location" placeholder="Місце скоєння:" name="offence_location">
                                 </div>
                                 <div class="form-group">
                                     <label for="article_select">Номер паспорту особи, яка вчинила правопорушення:</label>
-                                    <select id="article_select" class="form-control">
+                                    <select id="article_select" class="form-control" name="pcco_id">
                                         {{#pccos}}
-                                            <option value="{{id}}">{{passport_number}}</option>
+                                            <option value="{{_id}}">{{passport_number}}</option>
                                         {{/pccos}}
                                     </select>
                                 </div>
@@ -114,40 +110,40 @@
                         <div class="card-body">
                                 <div class="form-group">
                                     <label for="article_select">Номер кримінальної статті:</label>
-                                    <select id="article_select" class="form-control">
+                                    <select id="article_select" class="form-control" name="criminal_article">
                                         <option selected>Оберіть кримінальну статтю</option>
-                                        <option value="1">Стаття 12. Порушення кодексу честі КПІ</option>
-                                        <option value="2">Two</option>
-                                        <option value="3">Three</option>
+                                        {{#articles}}
+                                            <option value="{{article_title}}">{{article_title}}</option>
+                                        {{/articles}}                                        
                                     </select>
                                 </div>
                                 <div class="form-group">
                                     <label for="criminal_action_type">Вид покарання (стягнення), суть задоволення позовних вимог:</label>
-                                    <input type="text" class="form-control" id="criminal_action_type" placeholder="">
+                                    <input type="text" class="form-control" id="criminal_action_type" placeholder="Вид покарання (стягнення), суть задоволення позовних вимог:" name="criminal_action_type">
                                 </div>
                                 <div class="form-group">
                                     <label for="criminal_action_cancellation_date">Дата звільнення юридичної особи від застосування заходів кримінально-правового характеру:</label>
-                                    <input type="date" class="form-control" id="criminal_action_cancellation_date" placeholder="">
+                                    <input type="date" class="form-control" id="criminal_action_cancellation_date" placeholder="Дата звільнення юридичної особи від застосування заходів кримінально-правового характеру:" name="criminal_action_cancellation_date">
                                 </div>
                                 <div class="form-group">
                                     <label for="criminal_action_cancellation_reason">Підстава для звільнення юридичної особи від застосування заходів кримінально-правового характеру:</label>
-                                    <input type="text" class="form-control" id="criminal_action_cancellation_reason" placeholder="">
+                                    <input type="text" class="form-control" id="criminal_action_cancellation_reason" placeholder="Підстава для звільнення юридичної особи від застосування заходів кримінально-правового характеру:" name="criminal_action_cancellation_reason">
                                 </div>
                                 <div class="form-group">
                                     <label for="disciplinary_action_type">Вид дисциплінарного стягнення:</label>
-                                    <input type="text" class="form-control" id="disciplinary_action_type" placeholder="">
+                                    <input type="text" class="form-control" id="disciplinary_action_type" placeholder="Вид дисциплінарного стягнення:" name="disciplinary_action_type">
                                 </div>
                                 <div class="form-group">
                                     <label for="disciplinary_action_details">Реквізити розпорядчого документа про накладення дисциплінарного стягнення:</label>
-                                    <input type="text" class="form-control" id="disciplinary_action_details" placeholder="">
+                                    <input type="text" class="form-control" id="disciplinary_action_details" placeholder="Реквізити розпорядчого документа про накладення дисциплінарного стягнення:" name="disciplinary_action_details">
                                 </div>
                                 <div class="form-group">
                                     <label for="disciplinary_action_cancellation_date">Дата скасування розпорядчого документа про накладення дисциплінарного стягнення:</label>
-                                    <input type="date" class="form-control" id="disciplinary_action_cancellation_date" placeholder="">
+                                    <input type="date" class="form-control" id="disciplinary_action_cancellation_date" placeholder="Дата скасування розпорядчого документа про накладення дисциплінарного стягнення:" name="disciplinary_action_cancellation_date">
                                 </div>
                                 <div class="form-group">
                                     <label for="disciplinary_action_cancellation_reason">Підстава для скасування розпорядчого документа про накладення дисциплінарного стягнення:</label>
-                                    <input type="text" class="form-control" id="disciplinary_action_cancellation_reason" placeholder="">
+                                    <input type="text" class="form-control" id="disciplinary_action_cancellation_reason" placeholder="Підстава для скасування розпорядчого документа про накладення дисциплінарного стягнення:" name="disciplinary_action_cancellation_reason">
                                 </div>
                         </div>
                     </div>

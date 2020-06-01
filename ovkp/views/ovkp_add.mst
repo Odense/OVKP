@@ -81,7 +81,7 @@
                     <div class="form-group">
                         <label for="personalCodeLabel"><b>Особа є:</b></label>
                         <br>
-                        <input type="radio" id="is_personal" name="is_personal" value="true">
+                        <input type="radio" id="is_personal" name="is_personal" value="true" required>
                         <label for="male">Фізичною</label><br>
                         <input type="radio" id="is_personal" name="is_personal" value="false">
                         <label for="male">Юридичною</label><br>

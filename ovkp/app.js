@@ -43,25 +43,42 @@ function onListen() {
 
 let curr_user = null;
 
-app.get(`/`, function (req, res) {
-    CriminalArticles.getAll()
-        .then(articles => res.render(`main`, { articles: articles, user: curr_user }))
-        .catch(err => res.status(500).send(err.toString()));
+app.get(`/`, async (req, res) => {
+    try {
+        const articles = await CriminalArticles.getAll();
+        res.render(`main`, { articles: articles, user: curr_user });
+    } catch(err) {
+        res.status(500).send(err.toString());
+    }
 });
 
-app.post(`/`, function (req, res) {
-    CriminalRecord.getAll()
-        .then(records => { return Promise.all([records, CriminalArticles.getAll()]); })
-        .then(([records, articles]) =>
-            res.render(`main`,
+app.post(`/`, async (req, res) => {
+    try {
+        const records = await CriminalRecord.getAll();
+        const articles = await CriminalArticles.getAll();
+        res.render(`main`,
                 {
                     articles: articles,
                     ovkps: search(records, req.body.first_name, req.body.last_name, req.body.surname,
                         req.body.case_number, req.body.article_id),
                     user: curr_user
                 }
-            ))
-        .catch(err => res.status(500).send(err.toString()));
+            );
+    } catch(err) {
+        res.status(500).send(err.toString());
+    }
+    // CriminalRecord.getAll()
+    //     .then(records => { return Promise.all([records, CriminalArticles.getAll()]); })
+    //     .then(([records, articles]) =>
+    //         res.render(`main`,
+    //             {
+    //                 articles: articles,
+    //                 ovkps: search(records, req.body.first_name, req.body.last_name, req.body.surname,
+    //                     req.body.case_number, req.body.article_id),
+    //                 user: curr_user
+    //             }
+    //         ))
+    //     .catch(err => res.status(500).send(err.toString()));
 });
 
 /************************************
@@ -70,10 +87,13 @@ app.post(`/`, function (req, res) {
  *                                  *
  ************************************/
 
-app.get(`/articles`, function (req, res) {
-    CriminalArticles.getAll()
-        .then(articles => res.render(`articles`, { articles: articles, user: curr_user }))
-        .catch(err => res.status(500).send(err.toString()));
+app.get(`/articles`, async (req, res) => {
+    try {
+       const articles = await CriminalArticles.getAll();
+       res.render(`articles`, { articles: articles, user: curr_user });
+    } catch(err) {
+        res.status(500).send(err.toString());
+    }
 });
 
 app.get(`/article_add`, function (req, res) {
@@ -112,7 +132,7 @@ app.post('/article_modify', function (req, res) {
  *                                  *
  ************************************/
 
-app.get(`/criminal_records`, async (req, res) => { // todo
+app.get(`/criminal_records`, async (req, res) => {
     try {
         const record_l = await CriminalRecord.getAll();
         res.render(`criminal_records`, { record_l: record_l, user: curr_user });
@@ -121,7 +141,7 @@ app.get(`/criminal_records`, async (req, res) => { // todo
     }
 });
 
-app.get(`/criminal_records/:id`, async (req, res) => { // todo
+app.get(`/criminal_records/:id`, async (req, res) => {
     try {
         const record = await CriminalRecord.getById(req.params.id);
         res.render(`criminal_record`, { record: record, user: curr_user, pcco: record.pcco });
@@ -130,17 +150,32 @@ app.get(`/criminal_records/:id`, async (req, res) => { // todo
     }
 });
 
-app.get(`/criminal_record_add`, async (req, res) => { // todo
+app.get(`/criminal_record_add`, async (req, res) => {
     try {
         const pcco_l = await PCCO.getAll();
-        res.render('criminal_record_add', { pccos: pcco_l, user: curr_user });
+        const article_l = await CriminalArticles.getAll();
+        res.render('criminal_record_add', { pccos: pcco_l, user: curr_user, articles: article_l });
     } catch (err) {
         res.status(500).send(err.toString());
     }
 });
 
-app.post(`/criminal_record_add`, function (req, res) { // todo ебучие логи
-    res.render(`criminal_record_add`, { user: curr_user });
+app.post(`/criminal_record_add`, async (req, res) => { // todo ебучие логи
+    try {
+        const pcco = await PCCO.getById(req.body.pcco_id);
+        const record_to_add = new CriminalRecord(pcco, req.body.court_name, req.body.court_case_number, req.body.court_sentence_date,
+                                                req.body.court_sentence_number, req.body.court_sentence_applying_date,
+                                                req.body.criminal_record_cancellation_date, req.body.criminal_record_cancellation_reason,
+                                                req.body.is_active === 'true', req.body.criminal_article, req.body.criminal_action_type,
+                                                req.body.criminal_action_cancellation_date, req.body.criminal_action_cancellation_reason,
+                                                req.body.disciplinary_action_type, req.body.disciplinary_action_details,
+                                                req.body.disciplinary_action_cancellation_date, req.body.disciplinary_action_cancellation_reason,
+                                                req.body.offence_description, req.body.offence_method, req.body.offence_location);
+        const created_record_id = await CriminalRecord.insert(record_to_add);
+        res.redirect(`/criminal_records/${created_record_id}`);
+    } catch (err) {
+        res.status(500).send(err.toString());
+    }
 });
 
 app.get(`/criminal_record_modify/:id`, function (req, res) { // todo
