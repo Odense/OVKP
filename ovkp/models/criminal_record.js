@@ -96,12 +96,14 @@ class CriminalRecord {
 
     static async getAll() {
         return await CriminalRecordModel.find()
-        .populate('pcco');
+        .populate('pcco')
+        .populate('criminal_article');
     }
 
     static async getById(id) {
         return await CriminalRecordModel.findById(id)
-        .populate('pcco');
+        .populate('pcco')
+        .populate('criminal_article');
     }
 
     static async insert(criminal_record) {

@@ -56,12 +56,17 @@ app.post(`/`, async (req, res) => {
     try {
         const records = await CriminalRecord.getAll();
         const articles = await CriminalArticles.getAll();
+        let filtered_records = search(records, req.body.first_name, req.body.last_name, req.body.surname,
+            req.body.case_number, req.body.article_id);
+        let is_user_exists = false;
+        if (curr_user)
+        is_user_exists = true;
         res.render(`main`,
                 {
                     articles: articles,
-                    ovkps: search(records, req.body.first_name, req.body.last_name, req.body.surname,
-                        req.body.case_number, req.body.article_id),
-                    user: curr_user
+                    records: filtered_records,
+                    user: curr_user,
+                    is_user_exists: is_user_exists
                 }
             );
     } catch(err) {
@@ -278,7 +283,8 @@ app.get(`/logs`, function (req, res) {
     const log_obj = JSON.parse(fs.readFileSync('./data/logs.json', 'utf8'));
     res.render(`logs`, {
         new_values: JSON.stringify(log_obj.new_value, null, 4),
-        old_values: JSON.stringify(log_obj.old_value, null, 4)
+        old_values: JSON.stringify(log_obj.old_value, null, 4),
+        user: curr_user
     });
 });
 
@@ -383,60 +389,62 @@ app.post('/registrars_add', function (req, res) {
 
 function search(allCriminalRecords, first_name, last_name, surname, court_case_number, criminal_article_id) {
     let filteredByCaseNumber = [];
-    // eslint-disable-next-line eqeqeq
-    if (court_case_number != '') {
+    if (court_case_number) {
         for (let record of allCriminalRecords) {
             if (record.court_case_number.includes(court_case_number)) {
                 filteredByCaseNumber.push(record);
+                console.log('ok1');
             }
         }
     }
     else filteredByCaseNumber = Array.from(allCriminalRecords);
-
+    console.log('filter1: ' + first_name);    
     let filteredByFirstName = [];
-    // eslint-disable-next-line eqeqeq
-    if (first_name != '') {
+    if (first_name) {
         for (let record of filteredByCaseNumber) {
             if (record.pcco.first_name.includes(first_name)) {
                 filteredByFirstName.push(record);
+                console.log('ok1');
             }
         }
     }
     else filteredByFirstName = Array.from(filteredByCaseNumber);
-
+    console.log('filter2: ' + last_name);
     let filteredByLastName = [];
-    // eslint-disable-next-line eqeqeq
-    if (last_name != '') {
+    if (last_name) {
         for (let record of filteredByFirstName) {
             if (record.pcco.last_name.includes(last_name)) {
                 filteredByLastName.push(record);
+                console.log('ok2');
             }
         }
     }
     else filteredByLastName = Array.from(filteredByFirstName);
-
+    console.log('filter3: ' + surname);
     let filteredBySurname = [];
-    // eslint-disable-next-line eqeqeq
-    if (surname != '') {
+    if (surname) {
         for (let record of filteredByLastName) {
             if (record.pcco.surname.includes(surname)) {
                 filteredBySurname.push(record);
+                console.log('ok3');
             }
         }
     }
     else filteredBySurname = Array.from(filteredByLastName);
-
+    console.log('filter4: ' + criminal_article_id);
     let filtered = [];
-    // eslint-disable-next-line eqeqeq
-    if (criminal_article_id != '') {
+    if (criminal_article_id) {
         for (let record of filteredBySurname) {
-            if (record.criminal_article.id.includes(criminal_article_id)) {
+            // eslint-disable-next-line eqeqeq
+            if (record.criminal_article._id == criminal_article_id) {                
                 filtered.push(record);
+                console.log('ok4');
             }
         }
     }
     else filtered = Array.from(filteredBySurname);
-
+    console.log('filter5: ');
+    console.log(filtered);
     return filtered;
 }
 

@@ -33,7 +33,7 @@
     <div class="container-fluid">
         <div class="row justify-content-md-center mt-3">
             <div class="col-12">
-                <a class="btn btn-info" role="button" href="./ovkp_modify">ОНОВИТИ ІНФОРМАЦІЮ ПРО ОВКП ДАНОЇ СУДОВОЇ СПРАВИ</a>
+                <a class="btn btn-info" role="button" href="../ovkps/{{record.pcco._id}}">ОНОВИТИ ІНФОРМАЦІЮ ПРО ОВКП ДАНОЇ СУДОВОЇ СПРАВИ</a>
             </div>
         </div>
 

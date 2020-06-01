@@ -44,35 +44,35 @@
                         <h4 class="card-header header-top text-center">Введіть параметри пошуку</h4>
                         <div class="card-body">
                             <form action="/" enctype="multipart/form-data" method="POST">
-                            <div class="row justify-content-center">
-                                <div class="col-10">
-                                        <div class="form-row">
-                                            <div class="col">
-                                                <input type="text" class="form-control" name="first_name" placeholder="Ім'я">
+                                <div class="row justify-content-center">
+                                    <div class="col-10">
+                                            <div class="form-row">
+                                                <div class="col">
+                                                    <input type="text" class="form-control" name="first_name" placeholder="Ім'я">
+                                                </div>
+                                                <div class="col">
+                                                    <input type="text" class="form-control" name="surname" placeholder="Прізвище">
+                                                </div>
+                                                <div class="col">
+                                                    <input type="text" class="form-control" name="last_name" placeholder="По-батькові">
+                                                </div>
+                                                <div class="col">
+                                                    <input type="number" class="form-control" name="case_number" placeholder="Номер справи">
+                                                </div>
                                             </div>
-                                            <div class="col">
-                                                <input type="text" class="form-control" name="last_name" placeholder="Прізвище">
-                                            </div>
-                                            <div class="col">
-                                                <input type="text" class="form-control" name="surname" placeholder="По-батькові">
-                                            </div>
-                                            <div class="col">
-                                                <input type="text" class="form-control" name="case_number" placeholder="Номер справи">
-                                            </div>
-                                        </div>
+                                    </div>
+                                    <div class="col-10 mt-3">
+                                            <select id="article_select" name="article_id" class="form-control">
+                                                <option selected value="">Номер статті по якій винесено судове рішення</option>
+                                                {{#articles}}
+                                                    <option value="{{id}}">{{article_number}}. {{article_title}}</option>
+                                                {{/articles}}
+                                            </select>
+                                    </div>
                                 </div>
-                                <div class="col-10 mt-3">
-                                        <select id="article_select" name="article_id" class="form-control">
-                                            {{! <option selected value="">Номер статті по якій винесено судове рішення</option> }}
-                                            {{#articles}}
-                                                <option value="{{id}}">{{article_number}}. {{article_title}}</option>
-                                            {{/articles}}
-                                        </select>
+                                <div class="row justify-content-end">
+                                    <button type="submit" class="btn btn-success btn-sm rad mt-4 mr-2">ШУКАТИ</button>
                                 </div>
-                            </div>
-                            <div class="row justify-content-end">
-                                <button type="submit" class="btn btn-success btn-sm rad mt-4 mr-2">ШУКАТИ</button>
-                            </div>
                             </form>
                         </div>
                     </div>
@@ -81,58 +81,35 @@
         </div>
 
         <div class="row justify-content-md-center mt-3">
-            <div class="col-1">
-                <nav aria-label="Page navigation example">
-                    <ul class="pagination">
-                        <li class="page-item">
-                            <a class="page-link" href="#" aria-label="Previous">
-                                <span aria-hidden="true">&laquo;</span>
-                                <span class="sr-only">Previous</span>
-                            </a>
-                        </li>
-                        <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item">
-                            <a class="page-link" href="#" aria-label="Next">
-                                <span aria-hidden="true">&raquo;</span>
-                                <span class="sr-only">Next</span>
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
-        </div>
-
-        <div class="row justify-content-md-center mt-3">
-            <div class="col">                
+            <div class="col">
+            {{#records}}
                 <div class="card-header header-bottom">
-                {{#user}}            
+                {{#is_user_exists}}
                     <a class="btn btn-dark btn-sm rad" href="../criminal_record_modify/{{_id}}" role="button">ОНОВИТИ</a>
-                    <a class="btn btn-dark btn-sm rad ml-2" href="../criminal_record/{{_id}}" role="button">ДЕТАЛЬНІШЕ</a>
-                {{/user}}
+                    <a class="btn btn-dark btn-sm rad ml-2" href="../criminal_records/{{_id}}" role="button">ДЕТАЛЬНІШЕ</a>
+                {{/is_user_exists}}
                 </div>                
-                <div class="card-group">
-                    {{#ovkps}}
+                <div class="card-group">                    
                     <div class="card">
                         <div class="card-body">
                             <p class="card-title"><b>Прізвище на час скоєння правопорушення:</b></p>
-                            <p class="card-text">{{surname}}</p>
+                            <p class="card-text">{{pcco.surname}}</p>
                             <p class="card-title"><b>Ім'я на час скоєння правопорушення:</b></p>
-                            <p class="card-text">{{first_name}}</p>
+                            <p class="card-text">{{pcco.first_name}}</p>
                             <p class="card-title"><b>По батькові на час скоєння правопорушення:</b></p>
-                            <p class="card-text">{{last_name}}</p>
+                            <p class="card-text">{{pcco.last_name}}</p>
                         </div>
                     </div>
                     <div class="card">
                         <div class="card-body">
                             <p class="card-title"><b>Місце роботи на час вчинення корупційного правопорушення:</b></p>
-                            <p class="card-text">{{work_place}}</p>
+                            <p class="card-text">{{pcco.work_place}}</p>
                             <p class="card-title"><b>Посада на час вчинення корупційного правопорушення:</b></p>
-                            <p class="card-text">{{}}</p>
+                            <p class="card-text">{{pcco.work_position}}</p>
                             <p class="card-title"><b>Склад корупційного правопорушення:</b></p>
-                            <p class="card-text">0203</p>
+                            <p class="card-text">{{offence_description}}</p>
                         </div>
                     </div>
-                    {{/ovkps}}
                     <div class="card">
                         <div class="card-body">
                             <p class="card-title">
@@ -141,29 +118,29 @@
                                     за вчинення корупційного або пов'язаного з корупцією правопорушення:
                                 </b>
                             </p>
-                            <p class="card-text">КПІ</p>
+                            <p class="card-text">{{criminal_article.article_title}}</p>
                             <p class="card-title">
                                 <b>
                                     Дата набрання законної сили судовим рішенням про притягнення особи
                                     до відповідальності за корупційне правопорушення:
                                 </b>
                             </p>
-                            <p class="card-text">2020-05-20</p>
+                            <p class="card-text">{{court_sentence_applying_date}}</p>
                             <p class="card-title"><b>Номер судової справи:</b></p>
-                            <p class="card-text">ПН343554</p>
+                            <p class="card-text">{{court_case_number}}</p>
                             <p class="card-title"><b>Дата судового рішення:</b></p>
-                            <p class="card-text">2021-06-01</p>
+                            <p class="card-text">{{court_sentence_date}}</p>
                             <p class="card-title">
                                 <b>
                                     Найменування суду, який ухвалив (постановив) судове рішення про притягнення особи
                                     до відповідальності за корупційне правопорушення:
                                 </b>
                             </p>
-                            <p class="card-text">Закінчення університету</p>
+                            <p class="card-text">{{court_name}}</p>
                         </div>
                     </div>
                 </div>
-
+                {{/records}}
             </div>
         </div>
 
