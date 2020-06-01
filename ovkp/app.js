@@ -164,7 +164,7 @@ app.get(`/criminal_record_add`, async (req, res) => {
     }
 });
 
-app.post(`/criminal_record_add`, async (req, res) => { // todo ебучие логи
+app.post(`/criminal_record_add`, async (req, res) => {
     try {
         const article = await CriminalArticles.getById(req.body.criminal_article);
         const pcco = await PCCO.getById(req.body.pcco_id);
@@ -177,6 +177,10 @@ app.post(`/criminal_record_add`, async (req, res) => { // todo ебучие ло
                                                 req.body.disciplinary_action_cancellation_date, req.body.disciplinary_action_cancellation_reason,
                                                 req.body.offence_description, req.body.offence_method, req.body.offence_location);
         const created_record_id = await CriminalRecord.insert(record_to_add);
+        let record_to_log = { old_value: null,
+                            new_value: record_to_add };
+        const log_str = JSON.stringify(record_to_log, null, 4);
+        fs.writeFileSync('./data/logs.json', log_str);
         res.redirect(`/criminal_records/${created_record_id}`);
     } catch (err) {
         res.status(500).send(err.toString());
@@ -194,11 +198,13 @@ app.get(`/criminal_record_modify/:id`, async (req, res) => {
     }
 });
 
-app.post(`/criminal_record_modify/:id`, async (req, res) => { // todo ебучие логи
+app.post(`/criminal_record_modify/:id`, async (req, res) => {
     try {
         const article = await CriminalArticles.getById(req.body.criminal_article);
         const pcco = await PCCO.getById(req.body.pcco_id);
         let record_to_update = await CriminalRecord.getById(req.params.id);
+        let record_to_log = { old_value: record_to_update,
+                              new_value: null };
         record_to_update.pcco = pcco, 
         record_to_update.court_name = req.body.court_name; 
         record_to_update.court_case_number = req.body.court_case_number;
@@ -220,6 +226,9 @@ app.post(`/criminal_record_modify/:id`, async (req, res) => { // todo ебучи
         record_to_update.offence_method = req.body.offence_method;
         record_to_update.offence_location = req.body.offence_location;
         const updated_record = await CriminalRecord.update(record_to_update);
+        record_to_log.new_value = record_to_update;
+        const log_str = JSON.stringify(record_to_log, null, 4);
+        fs.writeFileSync('./data/logs.json', log_str);
         res.redirect(`/criminal_records/${updated_record._id}`);
     } catch (err) {
         res.status(500).send(err.toString());
@@ -265,12 +274,11 @@ app.get(`/logout`, function (req, res) {
  *                                  *
  ************************************/
 
-app.get(`/logs`, function (req, res) { // todo  READ LOG FILE AFTER CRUD DONE
+app.get(`/logs`, function (req, res) {
     const log_obj = JSON.parse(fs.readFileSync('./data/logs.json', 'utf8'));
     res.render(`logs`, {
-        logs: JSON.stringify(log_obj.logs, null, 4),
-        created_at: JSON.stringify(log_obj.logs[0].created_at, null, 4),
-        new_values: JSON.stringify(log_obj.logs[0].new_values, null, 4)
+        new_values: JSON.stringify(log_obj.new_value, null, 4),
+        old_values: JSON.stringify(log_obj.old_value, null, 4)
     });
 });
 
@@ -442,6 +450,26 @@ let transporter = nodemailer.createTransport({
     }
 });
 
+app.get('/deactivate/:id', function (req, res) {
+    const userId = req.params.id;
+    User.getById(userId)
+        .then(user => {
+            user.is_active = false;
+            return Promise.all([user, User.update(user)]);
+        })
+        .then(([user]) => {
+            return transporter.sendMail({
+                from: '"Anti-corruption Main Office" <ivannyakovlev99@gmail.com>',
+                to: user.email,
+                subject: "Деактивація акаунту",
+                html: `<p style="font-family: Trebuchet MS, sans-serif; font-size: 12pt;">Вітаємо, <strong style="font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 14pt;">${user.full_name}</strong></p>` +
+                    '<p style="font-family: Trebuchet MS, sans-serif; font-size: 12pt;">Вибачте, Ваш акаунт було деактивовано!</p>'                
+            });
+        })
+        .then(() => res.redirect(`/registrars`))
+        .catch(err => res.status(500).send(err.toString()));
+});
+
 app.get('/activate/:id', function (req, res) {
     const userId = req.params.id;
     User.getById(userId)
@@ -462,17 +490,6 @@ app.get('/activate/:id', function (req, res) {
             });
         })
         .then(() => res.redirect(`/registrars`))
-        .catch(err => res.status(500).send(err.toString()));
-});
-
-app.get('/deactivate/:id', function (req, res) {
-    const userId = req.params.id;
-    User.getById(userId)
-        .then(user => {
-            user.is_active = false;
-            return User.update(user);
-        })
-        .then(res.redirect(`/registrars`))
         .catch(err => res.status(500).send(err.toString()));
 });
 

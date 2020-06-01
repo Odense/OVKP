@@ -33,10 +33,9 @@
     {{> header}}
     <div class="container">
         <div class="row justify-content-md-center mt-5">
-            <div class="col-12">
-                <p><b>Log was created at:</b> {{created_at}}</p>
+            <div class="col-12">                
                 <p><b>New values:</b> {{new_values}}</p>
-                <p><b>All info:</b> {{logs}}</p>
+                <p><b>Old values:</b> {{old_values}}</p>
             </div>
         </div>
     </div>

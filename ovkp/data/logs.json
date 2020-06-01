@@ -1,42 +1,82 @@
 {
-  "logs": [
-    {
-      "record_id": "1",
-      "court_case_number": "KP7273",
-      "type": "CREATE_PCCO",
-      "author": {
-        "user_id": "2",
-        "full_name": "Pavlik Pavel Pavlovich"
-      },
-      "created_at": "2020-05-15",
-      "new_values": {
-        "first_name": "Ivan",
-        "last_name": "Zamoviy",
-        "surname": "Andriyovich",
-        "work_position": "profesor",
-        "work_place": "KPI",
-        "birth_date": "2000-04-12",
-        "birth_place": "Dnipro",
-        "residence": "Ukraine",
-        "is_ukr_residence": "true",
-        "is_personal": "true"
-      }
+    "old_value": {
+        "_id": "5ed45d8643b64b2be92b0609",
+        "pcco": {
+            "_id": "5ed4517e89fb3023d447e14c",
+            "passport_series": "АА",
+            "passport_number": "265497",
+            "passport_issuing_authority": "0452",
+            "personal_code": "КС91565У",
+            "first_name": "Петро",
+            "last_name": "Олексійович",
+            "surname": "Порошенко",
+            "work_position": "Президент України",
+            "work_place": "Офіс Президента України",
+            "birth_date": "1965-09-26T00:00:00.000Z",
+            "birth_place": "Болград, Україна",
+            "residence": "Київ, Україна",
+            "is_personal": true,
+            "legal_form": "false",
+            "__v": 0
+        },
+        "court_name": "Вищий антикорупційний суд України",
+        "court_sentence_date": "2020-06-11T00:00:00.000Z",
+        "court_sentence_number": "34",
+        "court_sentence_applying_date": "2020-07-04T00:00:00.000Z",
+        "criminal_record_cancellation_date": "2020-07-16T00:00:00.000Z",
+        "criminal_record_cancellation_reason": "ОВКП купив олівці.",
+        "is_active": false,
+        "criminal_article": "5ed452b589fb3023d447e14d",
+        "criminal_action_type": "Тюрма.",
+        "criminal_action_cancellation_date": "2020-06-23T00:00:00.000Z",
+        "criminal_action_cancellation_reason": "ОВКП відсидів.",
+        "disciplinary_action_type": "Копання траншеї.",
+        "disciplinary_action_details": "Наказ від 01/06/2020",
+        "disciplinary_action_cancellation_date": "2020-06-05T00:00:00.000Z",
+        "disciplinary_action_cancellation_reason": "Траншею викопано.",
+        "offence_description": "ОВКП ховав гроші руками в куртку.",
+        "offence_method": "Руки.",
+        "offence_location": "Карман куртки.",
+        "__v": 0
     },
-    {
-      "record_id": "2",
-      "court_case_number": "KP7273",
-      "type": "UPDATE_PCCO",
-      "author": {
-        "user_id": "2",
-        "full_name": "Pavlik Pavel Pavlovich"
-      },
-      "created_at": "2020-05-15",
-      "old_values": {
-        "first_name": "Artem"
-      },
-      "new_values": {
-        "first_name": "Ivan"
-      }
+    "new_value": {
+        "_id": "5ed45d8643b64b2be92b0609",
+        "pcco": {
+            "_id": "5ed4517e89fb3023d447e14c",
+            "passport_series": "АА",
+            "passport_number": "265497",
+            "passport_issuing_authority": "0452",
+            "personal_code": "КС91565У",
+            "first_name": "Петро",
+            "last_name": "Олексійович",
+            "surname": "Порошенко",
+            "work_position": "Президент України",
+            "work_place": "Офіс Президента України",
+            "birth_date": "1965-09-26T00:00:00.000Z",
+            "birth_place": "Болград, Україна",
+            "residence": "Київ, Україна",
+            "is_personal": true,
+            "legal_form": "false",
+            "__v": 0
+        },
+        "court_name": "Вищий антикорупційний суд України",
+        "court_sentence_date": "2020-06-11T00:00:00.000Z",
+        "court_sentence_number": "34",
+        "court_sentence_applying_date": "2020-07-04T00:00:00.000Z",
+        "criminal_record_cancellation_date": "2020-07-16T00:00:00.000Z",
+        "criminal_record_cancellation_reason": "ОВКП купив олівці.",
+        "is_active": false,
+        "criminal_article": "5ed452b589fb3023d447e14d",
+        "criminal_action_type": "Тюрма.",
+        "criminal_action_cancellation_date": "2020-06-23T00:00:00.000Z",
+        "criminal_action_cancellation_reason": "ОВКП відсидів.",
+        "disciplinary_action_type": "Копання траншеї.",
+        "disciplinary_action_details": "Наказ від 01/06/2020",
+        "disciplinary_action_cancellation_date": "2020-06-05T00:00:00.000Z",
+        "disciplinary_action_cancellation_reason": "Траншею викопано.",
+        "offence_description": "ОВКП ховав гроші руками в куртку.",
+        "offence_method": "Руки.",
+        "offence_location": "Карман куртки.",
+        "__v": 0
     }
-  ]
 }
