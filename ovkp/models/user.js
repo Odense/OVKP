@@ -27,8 +27,8 @@ class User {
         return UserModel.findById(id);
     }
 
-    static getByEmailAndPassword(email, password) {
-        return UserModel.findOne({email: email, password: password}); // todo check is active
+    static async getByEmailAndPassword(email, password) {
+        return await UserModel.findOne({email: email, password: password});
     }
 
     static getRegistrars() {

@@ -187,7 +187,7 @@ app.get(`/criminal_record_modify/:id`, async (req, res) => {
     try {
         const pcco_l = await PCCO.getAll();
         const article_l = await CriminalArticles.getAll();
-        const record_to_update = await PCCO.getById(req.params.id);
+        const record_to_update = await CriminalRecord.getById(req.params.id);
         res.render(`criminal_record_modify`, { user: curr_user, record: record_to_update, pccos: pcco_l, articles: article_l });
     } catch (err) {
         res.status(500).send(err.toString());
@@ -220,7 +220,7 @@ app.post(`/criminal_record_modify/:id`, async (req, res) => { // todo ебучи
         record_to_update.offence_method = req.body.offence_method;
         record_to_update.offence_location = req.body.offence_location;
         const updated_record = await CriminalRecord.update(record_to_update);
-        res.redirect(`/ovkps/${updated_record._id}`);
+        res.redirect(`/criminal_records/${updated_record._id}`);
     } catch (err) {
         res.status(500).send(err.toString());
     }
@@ -236,7 +236,14 @@ app.get(`/login`, function (req, res) {
     res.render(`login`, { user: curr_user });
 });
 
-app.post(`/login`, function (req, res) {
+app.post(`/login`, async (req, res) => {
+    try {
+        const curr_user = await User.getByEmailAndPassword(req.body.email, req.body.password);
+        if (!curr_user || !curr_user.is_active)
+                res.redirect('/login?denied');
+    } catch (err) {
+        res.status(403).send(err.toString());
+    }
     User.getByEmailAndPassword(req.body.email, req.body.password)
         .then(user => {
             curr_user = user;

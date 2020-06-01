@@ -47,7 +47,7 @@
                             <div class="card-body">                            
                                 <div class="form-group">
                                     <label for="court_name">Назва суду, що виніс вирок:</label>
-                                    <input type="number" class="form-control" id="court_name" value="{{record.court_name}}" name="court_name">
+                                    <input type="text" class="form-control" id="court_name" value="{{record.court_name}}" name="court_name">
                                 </div>
                                 <div class="form-group">
                                     <label for="court_sentence_date">Дата винесення вироку судом:</label>
@@ -145,14 +145,14 @@
                                     <label for="disciplinary_action_cancellation_reason">Підстава для скасування розпорядчого документа про накладення дисциплінарного стягнення:</label>
                                     <input type="text" class="form-control" id="disciplinary_action_cancellation_reason" value="{{record.disciplinary_action_cancellation_reason}}" name="disciplinary_action_cancellation_reason">
                                 </div>
-                                <div class="row justify-content-md-center mt-3 mb-3">
-                                    <div class="col-1">
-                                        <button type="submit" class="btn btn-success btn-lg">ЗБЕРЕГТИ</button>
-                                    </div>
-                                </div>
                             </div>
-                        </div>                    
+                        </div>                  
                     </div>
+                    <div class="row justify-content-md-center mt-3 mb-3">
+                        <div class="col-1">
+                            <button type="submit" class="btn btn-success btn-lg">ЗБЕРЕГТИ</button>
+                        </div>
+                    </div>  
                 </form>
             </div>
         </div>
